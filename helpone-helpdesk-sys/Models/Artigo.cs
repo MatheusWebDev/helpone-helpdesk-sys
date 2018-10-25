@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using helpone_helpdesk_sys.Models.Enums;
 using helpone_helpdesk_sys.Models.Chamados;
 
-namespace helpone_helpdesk_sys.Models.Artigos
-{
+namespace helpone_helpdesk_sys.Models
 	public class Artigo
 	{
 		public Artigo() => this.ListaChamados = new List<Chamado>();
