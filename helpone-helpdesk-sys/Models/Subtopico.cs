@@ -8,7 +8,7 @@ namespace helpone_helpdesk_sys.Models
 		public Subtopico() => this.ListaChamados = new List<Chamado>();
 
 		public int Id { get; set; }
-		public string TituloSubtopico { get; set; }
+		public string Titulo { get; set; }
 		public string Descricao { get; set; }
 		public int TopicoID { get; set; }
 

@@ -149,7 +149,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EquipeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAL\HelpDeskContext.cs" />
     <Compile Include="DAL\HelpDeskInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -243,6 +245,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Delete.cshtml" />
+    <Content Include="Views\Usuario\Details.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Equipe\Create.cshtml" />
+    <Content Include="Views\Equipe\Delete.cshtml" />
+    <Content Include="Views\Equipe\Details.cshtml" />
+    <Content Include="Views\Equipe\Edit.cshtml" />
+    <Content Include="Views\Equipe\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
