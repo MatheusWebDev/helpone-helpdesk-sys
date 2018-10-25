@@ -153,6 +153,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Artigo.cs" />
+    <Compile Include="Models\Chamados\Chamado.cs" />
+    <Compile Include="Models\Chamados\Conteudo.cs" />
+    <Compile Include="Models\Chamados\Feedback.cs" />
+    <Compile Include="Models\Enums\EnumEquipes.cs" />
+    <Compile Include="Models\Enums\EnumStatus.cs" />
+    <Compile Include="Models\Enums\EnumTipoUsuario.cs" />
+    <Compile Include="Models\Equipe.cs" />
+    <Compile Include="Models\Subtopico.cs" />
+    <Compile Include="Models\Topico.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -233,7 +244,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
