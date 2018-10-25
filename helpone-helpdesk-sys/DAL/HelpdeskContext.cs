@@ -7,7 +7,7 @@ namespace helpone_helpdesk_sys.DAL
 {
 	public class HelpDeskContext : DbContext
 	{
-		public HelpDeskContext() : base("HelpOneDB")
+		public HelpDeskContext() : base("HelpDeskContext")
 		{
 			Database.SetInitializer<HelpDeskContext>(new HelpDeskContextInitializer());
 		}
