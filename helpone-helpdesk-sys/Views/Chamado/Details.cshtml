@@ -4,71 +4,34 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
+<h2 class="mb-2 mt-5 border-bottom pb-3">#@Html.DisplayFor(model => model.Id) - @Html.DisplayFor(model => model.Titulo)</h2>
 <div>
-    <h4>Chamado</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Subtopico.Titulo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Subtopico.Titulo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Usuario.Login)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Usuario.Login)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EquipeAtendimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EquipeAtendimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataCriacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataCriacao)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DataFim)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DataFim)
-        </dd>
-
-    </dl>
+	<div class="d-flex flex-row justify-content-between">
+		<ol class="breadcrumb bg-transparent m-0 px-0">
+			<li class="breadcrumb-item">@Html.DisplayFor(model => model.Subtopico.Topico.Titulo) > @Html.DisplayFor(model => model.Subtopico.Titulo) - @Html.DisplayFor(model => model.Status)</li>
+		</ol>
+@Html.ActionLink("Voltar para lista", "Index", "Chamado", new { area = "" }, new { @class = "btn btn-info btn-sm align-self-end", role = "button" })
+	</div>
+	<h4 class="h5 my-3">Acompanhamento do chamado</h4>
+	<div class="chamado-box d-flex py-4">
+		<div class="user-profile-box text-center mr-3 px-2">
+			@Html.DisplayNameFor(model => model.Usuario)
+			<br />
+			@Html.DisplayFor(model => model.Usuario.Login)
+		</div>
+		<div class="chamado-content flex-grow-1 text-right">
+			<button type="button" class="btn btn-info mb-2 mr-2">
+				<i class="fas fa-times mr-1"></i>
+				Cancelar chamado @*Depois implementar no delete o CANCELAR*@
+			</button>
+			@Html.ActionLink("Editar Chamado", "Edit", new { id = Model.Id }, new { @class = "btn btn-info mb-2 mr-2", role = "button" })
+			@*<button type="button" class="btn btn-info mb-2"><i class="fas fa-edit mr-1"></i> Editar chamado</button>*@
+			<div class="content-chamado d-flex justify-content-between text-left px-4 py-3 border">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at laoreet magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent dapibus, enim eu sollicitudin rhoncus, ante est vestibulum nibh, vel ornare elit enim a nisi. Proin sodales, velit ac sollicitudin sollicitudin, nulla lorem aliquam magna, quis maximus diam nisi sed dolor. Curabitur urna felis, ultricies ut turpis ut, mattis dapibus nulla. Morbi pulvinar arcu felis, ornare viverra enim finibus porta. Nulla tincidunt porta blandit. Etiam faucibus urna at nunc aliquet eleifend. Duis ullamcorper nulla non quam pharetra rhoncus. Donec arcu nisi, convallis non finibus et, posuere sit amet enim.
+			</div>
+		</div>
+	</div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
 </p>
