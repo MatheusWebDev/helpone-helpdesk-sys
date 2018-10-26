@@ -2,8 +2,8 @@
 {
 	public enum EnumTipoUsuario
 	{
-		Operador,
-		Suporte,
-		Desenvolvimento
+		Operador = 1,
+		Suporte = 2,
+		Desenvolvimento = 3
 	}
 }

@@ -2,11 +2,11 @@
 {
 	public enum EnumStatus
 	{
-		AguardandoResposta,
-		ChamadoRespondido,
-		Cancelado,
-		FinalizadoSemFeedback,
-		FinalizadoFeedbackPositivo,
-		FinalizadoFeedbackNegativo
+		AguardandoResposta = 1,
+		ChamadoRespondido = 2,
+		Cancelado = 3,
+		FinalizadoSemFeedback = 4,
+		FinalizadoFeedbackPositivo = 5,
+		FinalizadoFeedbackNegativo = 6
 	}
 }

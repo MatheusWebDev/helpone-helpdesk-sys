@@ -161,7 +161,7 @@
     <Compile Include="Models\Chamados\Chamado.cs" />
     <Compile Include="Models\Chamados\Conteudo.cs" />
     <Compile Include="Models\Chamados\Feedback.cs" />
-    <Compile Include="Models\Enums\EnumEquipes.cs" />
+    <Compile Include="Models\Enums\EnumTipoEquipe.cs" />
     <Compile Include="Models\Enums\EnumStatus.cs" />
     <Compile Include="Models\Enums\EnumTipoUsuario.cs" />
     <Compile Include="Models\Equipe.cs" />
