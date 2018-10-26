@@ -1,6 +1,5 @@
-﻿using helpone_helpdesk_sys.Models;
-using helpone_helpdesk_sys.Models.Chamados;
-using helpone_helpdesk_sys.Models.Enums;
+﻿using helpone_helpdesk_sys.Models.Enums;
+using helpone_helpdesk_sys.Models;
 using System.Collections.Generic;
 
 namespace helpone_helpdesk_sys.DAL
@@ -11,8 +10,8 @@ namespace helpone_helpdesk_sys.DAL
 		{
 			var equipes = new List<Equipe>
 			{
-				new Equipe { Id=1, OMSituada="Local do Teste" },
-				new Equipe { Id=2, OMSituada="Algum Lugar" }
+				new Equipe { Id=1, OMSituada="Local do Teste", TipoEquipe=EnumTipoEquipe.Suporte },
+				new Equipe { Id=2, OMSituada="Algum Lugar", TipoEquipe=EnumTipoEquipe.Desenvolvimento }
 			};
 			equipes.ForEach(eq => context.Equipes.Add(eq));
 			context.SaveChanges();
