@@ -1,26 +1,32 @@
 ﻿@model helpone_helpdesk_sys.Models.Equipe
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="mt-4">Details</h2>
 
 <div>
-    <h4>Equipe</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OMSituada)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OMSituada)
-        </dd>
-
-    </dl>
+	<h4 class="my-3">Equipe: #@Html.DisplayFor(model => model.Id) - @Html.DisplayFor(model => model.OMSituada)</h4>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+		</tr>
+		@foreach (var item in Model.ListaMembros)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Login)
+				</td>
+			</tr>
+		}
+	</table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+	@Html.ActionLink("Back to List", "Index")
 </p>

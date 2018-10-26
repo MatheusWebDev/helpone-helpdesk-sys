@@ -14,7 +14,7 @@ namespace helpone_helpdesk_sys.Controllers
         // GET: Equipe
         public ActionResult Index()
         {
-            return View(db.Equipes.ToList());
+            return View(db.Equipes.Include("ListaMembros").ToList());
         }
 
         // GET: Equipe/Details/5
@@ -24,7 +24,7 @@ namespace helpone_helpdesk_sys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Equipe equipe = db.Equipes.Find(id);
+				Equipe equipe = db.Equipes.Find(id);
             if (equipe == null)
             {
                 return HttpNotFound();
