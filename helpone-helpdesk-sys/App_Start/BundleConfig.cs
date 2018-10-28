@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace helpone_helpdesk_sys
 {
@@ -24,6 +23,7 @@ namespace helpone_helpdesk_sys
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 						 "~/Content/bootstrap.css",
+						 "~/Content/fontawesome/all.css",
 						 "~/Content/site.css"));
 		}
 	}

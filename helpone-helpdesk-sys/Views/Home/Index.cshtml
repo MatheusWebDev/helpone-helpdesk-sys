@@ -2,10 +2,220 @@
 	ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron py-4 mt-4">
-	<h1 class="display-4">HelpOne - Sistema de HelpDesk</h1>
-	<p class="lead">Implementação do sistema para Projeto Integrado Multidisciplinar IV do curso de Análise e Desenvolvimento de Sistemas.</p>
-	<hr class="my-4">
-	<p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-	<a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</div>
+<!-- Hero Section with search -->
+<section id="section-hero" class="bg-secondary">
+	<div class="container">
+		<div class="row align-items-center justify-content-center" style="min-height: 40vh;">
+			<div class="col-md-9 col-lg-7 d-flex flex-column justify-content-center">
+				<h1 class="text-white text-center mb-3">Como podemos ajuda-lo?</h1>
+				<div class="search-form text-center">
+					<form action="" class="form-inline my-2 my-lg-0 position-relative">
+						<i class="fas fa-search position-absolute" style="left: 10px;"></i><input style="border-radius: 1.5rem; padding-left: 2rem;" class="form-control mr-sm-2 w-100" type="search" placeholder="Search" aria-label="Search">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Content Section -->
+<section class="content">
+	<div class="container">
+		<div class="row py-5">
+			<!-- col soluctions -->
+			<div class="col-sm-6 col-lg-5 mb-5 text-center text-sm-left">
+				<h2 class="h3 mb-2">Soluções Frequentes</h2>
+				<div class="row mt-3">
+					<div class="col-md-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-md-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-md-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-md-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+				</div>
+				<div class="row d-none d-md-flex">
+					<div class="col-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+					<div class="col-6 p-2">
+						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+							Some text in heto with some problem?
+						</a>
+					</div>
+				</div>
+			</div><!-- /.col-soluctions -->
+			<!-- col-topics -->
+			<div class="col-sm-6 col-lg-4 pl-md-5 text-center text-sm-left">
+				<h2 class="h3 mb-3">Selecione um tópico</h2>
+				<div class="accordion my-3 pt-2" id="accordionExample">
+					<!-- accordion-topics -->
+					<div class="card border-0">
+						<!-- card-accordion -->
+						<div id="headingOne">
+							<!-- card-header -->
+							<h5 class="mb-3">
+								<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<div class="d-inline-block">
+										Consultar chamados
+										<small class="d-block">Some text here of button</small>
+									</div>
+									<div class="d-inline-block ml-4">
+										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
+									</div>
+								</button>
+							</h5>
+						</div>
+						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+							<!-- card-body -->
+							<div class="card-body">
+								<div class="list-group list-group-flush">
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card-accordion -->
+					<!-- -------->
+					<div class="card border-0">
+						<!-- card-accordion -->
+						<div id="headingTwo">
+							<!-- card-header -->
+							<h5 class="mb-3">
+								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<div class="d-inline-block">
+										Consultar chamados
+										<small class="d-block">Some text here of button</small>
+									</div>
+									<div class="d-inline-block ml-4">
+										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
+									</div>
+								</button>
+							</h5>
+						</div>
+						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+							<div class="card-body">
+								<div class="list-group list-group-flush">
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card-accordion -->
+					<!-- -------->
+					<div class="card border-0">
+						<!-- card-accordion -->
+						<div id="headingThree">
+							<!-- card-header -->
+							<h5 class="mb-3">
+								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+									<div class="d-inline-block">
+										Consultar chamados
+										<small class="d-block">Some text here of button</small>
+									</div>
+									<div class="d-inline-block ml-4">
+										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
+									</div>
+								</button>
+							</h5>
+						</div>
+						<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+							<!-- /.card-body -->
+							<div class="card-body">
+								<div class="list-group list-group-flush">
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card-accordion -->
+					<!-- -------->
+					<div class="card border-0">
+						<!-- card-accordion -->
+						<div id="headingFour">
+							<!-- card-header -->
+							<h5 class="mb-3">
+								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+									<div class="d-inline-block">
+										Consultar chamados
+										<small class="d-block">Some text here of button</small>
+									</div>
+									<div class="d-inline-block ml-4">
+										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
+									</div>
+								</button>
+							</h5>
+						</div>
+						<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+							<!-- /.card-body -->
+							<div class="card-body">
+								<div class="list-group list-group-flush">
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+								</div>
+							</div>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card-accordion -->
+				</div>
+				<!-- /.accordion-topics -->
+			</div><!-- /.col-topics -->
+			<!-- actions-btns -->
+			<div class="col-lg-3 pt-4 pt-sm-0 pt-lg-5">
+				<div class="row">
+					<div class="col-sm-6 col-lg-12">
+						<a role="button" href="@Url.Action("Index", "Chamado")" class="btn btn-lg btn-block btn-info py-4 rounded-0">
+							<span class="d-block mb-1"><i class="fas fa-3x fa-chart-bar"></i></span>
+							Consultar chamados
+							<small class="d-block">Some text here of button</small>
+						</a>
+					</div>
+					<div class="col-sm-6 col-lg-12">
+						<a role="button" href="@Url.Action("Create", "Chamado")" class="btn btn-lg btn-block btn-info py-4 rounded-0 mt-5 mt-sm-0 mt-lg-5">
+							<span class="d-block mb-1"><i class="fas fa-3x fa-chart-bar"></i></span>
+							Abrir chamado
+							<small class="d-block">Some text here of button</small>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- /.actions-btns -->
+		</div>
+	</div>
+</section>

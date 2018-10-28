@@ -10,53 +10,41 @@
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
-		<h2 class="my-3">Chamado</h2>
+		<h2 class="my-3">Cadastrar chamado</h2>
 		<hr class="mb-3" />
 
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 		<div class="form-group">
-			@Html.LabelFor(model => model.Subtopico.TopicoID, "Topico", htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "selecione topico", htmlAttributes: new { @class = "form-control" })
-				@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
-			</div>
+			<label for="Subtopico_TopicoID">Em que podemos ajudar?</label>
+			@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "selecione topico", htmlAttributes: new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.SubtopicoID, "SubtopicoID", htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "selecione subtopico", htmlAttributes: new { @class = "form-control" })
-				@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
-			</div>
+			<label for="SubtopicoID">Qual problema está tendo?</label>
+			@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "selecione subtopico", htmlAttributes: new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-			</div>
+			<label for="Titulo">Título do chamado</label>
+			@Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
-			@Html.LabelFor(model => model.Conteudos, htmlAttributes: new { @class = "control-label col-md-2" })
-			<div class="col-md-10">
-				@Html.TextArea("ConteudoForm", new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.Conteudos.Single().ConteudoChamado, "", new { @class = "text-danger" })
-			</div>
+			<label for="ConteudoForm">Descrição do problema</label>
+			<textarea class="form-control" id="ConteudoForm" name="ConteudoForm" rows="3"></textarea>
+			@Html.ValidationMessageFor(model => model.Conteudos.Single().ConteudoChamado, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
-			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Create" class="btn btn-default" />
-			</div>
+			<input type="submit" value="Cadastrar chamado" class="btn btn-primary btn-info btn-lg mt-4" />
 		</div>
 	</div>
 }
+@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm" })
 
-<div>
-	@Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")

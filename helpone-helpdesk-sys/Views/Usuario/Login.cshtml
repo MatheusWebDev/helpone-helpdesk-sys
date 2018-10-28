@@ -3,13 +3,21 @@
 	ViewBag.Title = "Login";
 }
 
-<section class="user-level" >
+<section class="user-level">
 	<div class="container">
 		<div class="row align-items-center justify-content-center">
-			<div class="col text-center" style="min-height: 85vh;">
+			<div class="col d-flex flex-column text-center justify-content-center" style="min-height: 85vh;">
 				<h1 class="text-white">Qual o seu nível de acesso?</h1>
-				<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">Operador</a>
-				<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">Equipe de suporte</a>
+				<div>
+					<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">
+						<i class="fas fa-user mr-2"></i>
+						Operador
+					</a>
+					<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">
+						<i class="fas fa-user mr-2"></i>
+						Equipe de suporte
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

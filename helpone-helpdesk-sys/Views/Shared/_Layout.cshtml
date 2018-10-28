@@ -9,29 +9,54 @@
 	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		@Html.ActionLink("HelpOne - HelpDesk Sys", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse " id="navbarNav">
-			<ul class="navbar-nav">
-				<li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-				<li class="nav-item">@Html.ActionLink("Equipes", "Index", "Equipe", new { area = "" }, new { @class = "nav-link" })</li>
-				<li class="nav-item">@Html.ActionLink("Chamados", "Index", "Chamado", new { area = "" }, new { @class = "nav-link" })</li>
-				<li class="nav-item">@Html.ActionLink("Artigos", "Index", "Artigo", new { area = "" }, new { @class = "nav-link" })</li>
-			</ul>
-		</div>
 
-	</nav>
+	<header class="header">
+		<nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm">
+			<div class="container">
+				@Html.ActionLink("Retornar ao SiCaPEx", "Login", "Usuario", new { area = "" }, new { @class = "nav-link d-none d-md-block" })
+				<a class="navbar-brand mr-0 my-1" href="@Url.Action("Index","Home")">
+					<img src="~/Content/images/logo.png" height="55" alt="HelpOne - Sistema de HelpDesk">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item align-self-center">
+							<button type="button" class="btn btn-link text-secondary" title="acessibilidade para daltônicos" data-toggle="modal" data-target="#exampleModalCenter">
+								<i class="fas fa-low-vision fa-2x"></i>
+							</button>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="d-inline-block">
+									<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="Matheus Fernandes">
+								</span>
+								<span class="d-inline-block">
+									Matheus Fernandes
+								</span>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								@Html.ActionLink("Meus chamados", "Index", "Chamado", new { area = "" }, new { @class = "dropdown-item" })
+								@Html.ActionLink("Abrir Chamado", "Create", "Chamado", new { area = "" }, new { @class = "dropdown-item" })
+								@Html.ActionLink("Equipes", "Index", "Equipe", new { area = "" }, new { @class = "dropdown-item" })
+								<div class="dropdown-divider"></div>
+								@Html.ActionLink("Retornar ao SiCaPEx", "Login", "Usuario", new { area = "" }, new { @class = "dropdown-item" })
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
 
-	<div class="container body-content">
+	<main class="container body-content">
 		@RenderBody()
-		<hr />
-		<footer>
-			<p>Copyright @@ 2018 | DGP - QGEx - Bloco E - 3º Piso - SMU - CEP 70630-901 - Brasília-DF</p>
-		</footer>
-	</div>
+	</main>
+	<hr />
+	<footer class="container">
+		<p>Copyright @@ 2018 | DGP - QGEx - Bloco E - 3º Piso - SMU - CEP 70630-901 - Brasília-DF</p>
+	</footer>
 
 
 
