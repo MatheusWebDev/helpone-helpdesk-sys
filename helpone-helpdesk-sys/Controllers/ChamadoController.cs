@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -16,13 +17,12 @@ namespace helpone_helpdesk_sys.Controllers
 		// GET: Chamado
 		public ActionResult Index()
 		{
-			var chamados = db.Chamados.Include(c => c.Conteudos).Include(c => c.Subtopico).Include(c => c.Subtopico.Topico);
-			//var conteudos = db.Conteudos;
-			return View(chamados.ToList());
+			var chamados = db.Chamados.ToList();
+			return View(chamados);
 		}
 
-		// GET: Chamado/Details/5
-		public ActionResult Details(int? id)
+		// GET: Chamado/Acompanhar/5
+		public ActionResult Acompanhar(int? id)
 		{
 			if (id == null)
 			{
@@ -36,45 +36,48 @@ namespace helpone_helpdesk_sys.Controllers
 			return View(chamado);
 		}
 
-		// GET: Chamado/Create [FORMULARIO]
-		public ActionResult Create()
+		// GET: Chamado/Abrir [FORMULARIO]
+		public ActionResult Abrir()
 		{
 			ViewBag.TopicoID = new SelectList(db.Topicos, "Id", "Titulo");
 			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo");
 			return View();
 		}
 
-		// POST: Chamado/Create [AÇÃO SALVA]
+		// POST: Chamado/Abrir [AÇÃO SALVA]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Titulo,TopicoID,SubtopicoID")] Chamado chamado, String conteudoForm)
+		public ActionResult Abrir([Bind(Include = "Titulo,TopicoID,SubtopicoID")] Chamado chamado, String conteudoForm)
 		{
 			if (ModelState.IsValid)
 			{
 				chamado.Status = EnumStatus.AguardandoResposta;
 				chamado.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				chamado.UsuarioID = 1; // implementar depois -> pegar ID do usuario logado
+				chamado.UsuarioID = 1; // TODO: implementar depois -> pegar ID do usuario logado
 
-				if (chamado.SubtopicoID == 1) // implementar mais corretamente depois -> procura lista de subtopicos (problemas p/ suporte) se o SubtopicoID cadastrado no formulário está na lista de problemas p/ suporte && mesmo para comparação a baixo, porem para equipe de desenvolvimento || algo assim "db.Subtopicos.ToList().ForEach(subt => subt.Id == chamado.SubtopicoID )"
+				var listaSubtSuporte = db.Subtopicos.Where(st => st.TopicoID == 1).ToList();
+				var listaSubtDev = db.Subtopicos.Where(st => st.TopicoID == 2).ToList();
+
+				if (listaSubtSuporte.Any(st => st.Id == chamado.SubtopicoID))
 				{
 					chamado.EquipeAtendimento = EnumTipoEquipe.Suporte;
 				}
-				else if (chamado.SubtopicoID == 3)
+				else if (listaSubtDev.Any(st => st.Id == chamado.SubtopicoID))
 				{
 					chamado.EquipeAtendimento = EnumTipoEquipe.Desenvolvimento;
+				} else {
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				// Cria o conteudo para salvar na lista de conteudos do chamado
+				// Cria uma instância de 'Conteudo' para salvar na lista de 'Conteudos' do chamado
 				Conteudo conteudoSalvar = new Conteudo();
 				conteudoSalvar.ConteudoChamado = conteudoForm;
-				conteudoSalvar.UsuarioID = 1; // implementar depois -> pegar ID do usuario logado
+				conteudoSalvar.UsuarioID = 1; // TODO: implementar depois -> pegar ID do usuario logado
 				conteudoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				conteudoSalvar.Chamado = chamado;
+				conteudoSalvar.Chamado = chamado; // salva o chamado no 'conteudo'
 				db.Conteudos.Add(conteudoSalvar);
 
-				// salva o conteudo no chamado
-				chamado.Conteudos.Add(conteudoSalvar);
-				var teste = chamado.Conteudos;
+				chamado.Conteudos.Add(conteudoSalvar); // salva o conteudo no chamado
 				db.Chamados.Add(chamado);
 				db.SaveChanges();
 				return RedirectToAction("Index");
@@ -85,8 +88,8 @@ namespace helpone_helpdesk_sys.Controllers
 			return View(chamado);
 		}
 
-		// GET: Chamado/Edit/5 [FORMULARIO]
-		public ActionResult Edit(int? id)
+		// GET: Chamado/Editar/5 [FORMULARIO]
+		public ActionResult Editar(int? id)
 		{
 			if (id == null)
 			{
@@ -102,52 +105,52 @@ namespace helpone_helpdesk_sys.Controllers
 			return View(chamado);
 		}
 
-		// POST: Chamado/Edit/5 [AÇÃO SALVA]
+		// POST: Chamado/Editar/5 [AÇÃO SALVA]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Titulo,TopicoID,SubtopicoID")] Chamado chamado, String conteudoForm)
+		public ActionResult Editar([Bind(Include = "Titulo,TopicoID,SubtopicoID")] Chamado chamadoForm, String conteudoForm, int id)
 		{
 			if (ModelState.IsValid)
 			{
-				chamado.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-
-				if (chamado.SubtopicoID == 1) // implementar mais corretamente depois -> procura lista de subtopicos (problemas p/ suporte) se o SubtopicoID cadastrado no formulário está na lista de problemas p/ suporte && mesmo para comparação a baixo, porem para equipe de desenvolvimento || algo assim "db.Subtopicos.ToList().ForEach(subt => subt.Id == chamado.SubtopicoID )"
+				List<Chamado> acharChamadoOld = db.Chamados.Where(c => c.Id == id).Include(c => c.Conteudos).ToList();
+				if (acharChamadoOld != null || acharChamadoOld.Count < 2)
 				{
-					chamado.EquipeAtendimento = EnumTipoEquipe.Suporte;
-				}
-				else if (chamado.SubtopicoID == 3)
-				{
-					chamado.EquipeAtendimento = EnumTipoEquipe.Desenvolvimento;
+					Chamado chamadoEditar = acharChamadoOld.First();
+					chamadoEditar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+					// SE mudar o Subtopico
+					if (!chamadoEditar.SubtopicoID.Equals(chamadoForm.SubtopicoID))
+					{
+						var listaSubtSuporte = db.Subtopicos.Where(st => st.TopicoID == 1).ToList();
+						var listaSubtDev = db.Subtopicos.Where(st => st.TopicoID == 2).ToList();
+						if (listaSubtSuporte.Any(st => st.Id == chamadoForm.SubtopicoID))
+						{
+							chamadoEditar.EquipeAtendimento = EnumTipoEquipe.Suporte;
+						}
+						else if (listaSubtDev.Any(st => st.Id == chamadoForm.SubtopicoID))
+						{
+							chamadoEditar.EquipeAtendimento = EnumTipoEquipe.Desenvolvimento;
+						}
+						else
+						{
+							return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+						}
+					}
+
+					// Edita o 'Conteudo' deste chamadoEditar
+					Conteudo conteudoEditar = chamadoEditar.Conteudos.First();
+					conteudoEditar.ConteudoChamado = conteudoForm;
+					conteudoEditar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+					db.Entry(conteudoEditar).State = EntityState.Modified;
+
+					db.Entry(chamadoEditar).State = EntityState.Modified;
 				}
 
-				// Edita o conteudo para salvar na lista de conteudos do chamado
-				Conteudo conteudoSalvar = chamado.Conteudos.First();
-				conteudoSalvar.ConteudoChamado = conteudoForm;
-				conteudoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				db.Entry(conteudoSalvar).State = EntityState.Modified;
-
-				db.Entry(chamado).State = EntityState.Modified;
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}
 			ViewBag.TopicoID = new SelectList(db.Topicos, "Id", "Titulo");
 			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo");
-			return View(chamado);
-		}
-
-		// GET: Chamado/Cancelar/5
-		public ActionResult Cancelar(int? id)
-		{
-			if (id == null)
-			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-			}
-			Chamado chamado = db.Chamados.Find(id);
-			if (chamado == null)
-			{
-				return HttpNotFound();
-			}
-			return View(chamado);
+			return View(chamadoForm);
 		}
 
 		// POST: Chamado/Cancelar/5

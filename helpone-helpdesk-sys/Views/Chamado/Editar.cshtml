@@ -1,8 +1,7 @@
 ﻿@model helpone_helpdesk_sys.Models.Chamados.Chamado
 
-
 @{
-	ViewBag.Title = "Create";
+	ViewBag.Title = "Edit";
 }
 
 @using (Html.BeginForm())
@@ -10,19 +9,22 @@
 	@Html.AntiForgeryToken()
 
 	<div class="form-horizontal">
-		<h2 class="my-3">Cadastrar chamado</h2>
+		<h2 class="my-3">Chamado</h2>
 		<hr class="mb-3" />
-
 		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.Id)
+
 		<div class="form-group">
 			<label for="Subtopico_TopicoID">Em que podemos ajudar?</label>
-			@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "selecione topico", htmlAttributes: new { @class = "form-control" })
+			@Html.DropDownListFor(model => model.Subtopico.TopicoID, (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control" })
+			@*@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "selecione topico", htmlAttributes: new { @class = "form-control" })*@
 			@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
 			<label for="SubtopicoID">Qual problema está tendo?</label>
-			@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "selecione subtopico", htmlAttributes: new { @class = "form-control" })
+			@Html.DropDownListFor(model => model.Subtopico.Id, (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control" })
+			@*@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "selecione subtopico", htmlAttributes: new { @class = "form-control" })*@
 			@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
 		</div>
 
@@ -34,17 +36,16 @@
 
 		<div class="form-group">
 			<label for="ConteudoForm">Descrição do problema</label>
-			<textarea class="form-control" id="ConteudoForm" name="ConteudoForm" rows="3"></textarea>
+			<textarea class="form-control" id="ConteudoForm" name="ConteudoForm" rows="12">@Html.DisplayFor(model => model.Conteudos.First().ConteudoChamado)</textarea>
 			@Html.ValidationMessageFor(model => model.Conteudos.Single().ConteudoChamado, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
-			<input type="submit" value="Cadastrar chamado" class="btn btn-primary btn-info btn-lg mt-4" />
+			<input type="submit" value="Salvar" class="btn btn-primary btn-info btn-lg" />
 		</div>
 	</div>
 }
-@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm" })
-
+@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm mt-3" })
 
 @section Scripts {
 	@Scripts.Render("~/bundles/jqueryval")

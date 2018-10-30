@@ -1,57 +1,96 @@
 ﻿@model IEnumerable<helpone_helpdesk_sys.Models.Chamados.Chamado>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<section class="content">
+	<div class="row py-5">
+		<div class="col-12 text-center text-sm-left">
+			<h2 class="mb-4 border-bottom pb-3">Consultar chamados</h2>
+			<div class="d-flex justify-content-between align-items-center">
+				<h4>Meus chamados</h4>
+				@Html.ActionLink("Abrir chamado", "Abrir", new { area = "" }, new { @class = "btn btn-info btn-sm" })
+			</div>
+			<div class="filtro border-top border-right border-left px-4 py-3 mt-2">
+				<a href="#" class="text-secondary filtro__link"><i class="fas fa-filter"></i></a>
+			</div>
+			<table class="table table-hover border-right border-left border-bottom">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Titulo do chamado</th>
+						<th scope="col">Data criação</th>
+						<th scope="col">Status</th>
+						<th scope="col">Equipe de Atend.</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+							<td><a href="@Url.Action("Acompanhar", "Chamado", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
+							<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+							<td>@Html.DisplayFor(modelItem => item.Status)</td>
+							<td>@Html.DisplayFor(modelItem => item.EquipeAtendimento)</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div><!-- ./ artigo-header -->
+	</div>
+</section>
+
+@*<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataCriacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EquipeAtendimento)
-        </th>
-        <th></th>
-    </tr>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Id)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Titulo)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.DataCriacao)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Status)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.EquipeAtendimento)
+		</th>
+		<th></th>
+	</tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataCriacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquipeAtendimento)
-        </td>
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
-            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Cancelar", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Id)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Titulo)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.DataCriacao)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Status)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.EquipeAtendimento)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+				@Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+				@Html.ActionLink("Cancelar", "Delete", new { id = item.Id })
+			</td>
+		</tr>
+	}
 
-</table>
+</table>*@
