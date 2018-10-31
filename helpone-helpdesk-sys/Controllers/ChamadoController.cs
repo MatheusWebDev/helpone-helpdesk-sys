@@ -132,7 +132,7 @@ namespace helpone_helpdesk_sys.Controllers
 						}
 						else
 						{
-							return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+							chamadoEditar.EquipeAtendimento = EnumTipoEquipe.Suporte;
 						}
 					}
 
@@ -164,6 +164,44 @@ namespace helpone_helpdesk_sys.Controllers
 			chamado.DataFim = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
 
 			db.Entry(chamado).State = EntityState.Modified;
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		// POST: Chamado/Finalizar/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Finalizar([Bind(Include = "SolucaoFoiUtil,NivelSatisfacao,Mensagem")] Feedback feedback, int id)
+		{
+			// Se usuário NÃO informar NADA => salva chamado comoo 'SemFeedback'
+			if (feedback.NivelSatisfacao == 0 && (feedback.Mensagem == null || feedback.Mensagem == ""))
+			{
+				Chamado chamado = db.Chamados.Find(id);
+				chamado.Status = EnumStatus.FinalizadoSemFeedback;
+				chamado.DataFim = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+
+				db.Entry(chamado).State = EntityState.Modified;
+			}
+			else // Se usuário informar ALGO => lógica para salvar o 'Feedback' && salvar o chamado com o Feedback
+			{
+				Chamado chamado = db.Chamados.Find(id);
+				if (feedback.SolucaoFoiUtil)
+				{
+					chamado.Status = EnumStatus.FinalizadoFeedbackPositivo;
+				}
+				else
+				{
+					chamado.Status = EnumStatus.FinalizadoFeedbackNegativo;
+				}
+				feedback.Chamado = chamado;
+				feedback.ChamadoID = chamado.Id;
+				feedback.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+				feedback.UsuarioID = 1; // implementar depois
+				chamado.Feedback = feedback;
+				db.Feedbacks.Add(feedback);
+				db.Entry(chamado).State = EntityState.Modified;
+			}
+
 			db.SaveChanges();
 			return RedirectToAction("Index");
 		}
