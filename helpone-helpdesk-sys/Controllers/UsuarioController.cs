@@ -1,10 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using helpone_helpdesk_sys.DAL;
+using helpone_helpdesk_sys.Models;
+using System;
+using System.Web;
+using System.Web.Mvc;
 
 namespace helpone_helpdesk_sys.Controllers
 {
 	public class UsuarioController : Controller
 	{
-		//private HelpDeskContext db = new HelpDeskContext();
+		private HelpDeskContext db = new HelpDeskContext();
 
 		//GET: Fomulário Login
 		public ActionResult Login()
@@ -13,9 +17,20 @@ namespace helpone_helpdesk_sys.Controllers
 		}
 
 		//POST: Logar usuário
-		public ActionResult Logar()
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Logar(int id)
 		{
-			return RedirectToAction("Index", "Home");
+			Usuario usuario = db.Usuarios.Find(id);
+
+			if(usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Suporte || usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Desenvolvimento)
+			{
+				return RedirectToAction("Index", "Home");
+			} else if (usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Operador)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			throw new HttpException(401, "Unauthorized access");
 		}
 
 	}

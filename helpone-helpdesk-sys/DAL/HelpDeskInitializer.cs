@@ -19,10 +19,10 @@ namespace helpone_helpdesk_sys.DAL
 			var usuarios = new List<Usuario>
 			{
 				new Usuario {Id=1, Login="user1", Senha="123", Daltonismo=true, TipoAcesso=EnumTipoUsuario.Operador},
-				new Usuario {Id=2, Login="user2", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Suporte, EquipeId=2},
-				new Usuario {Id=3, Login="user3", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Suporte, EquipeId=2},
-				new Usuario {Id=4, Login="user4", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Desenvolvimento, EquipeId=1},
-				new Usuario {Id=5, Login="user5", Senha="123", Daltonismo=true, TipoAcesso=EnumTipoUsuario.Desenvolvimento, EquipeId=1}
+				new Usuario {Id=2, Login="user2", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Suporte, EquipeId=1},
+				new Usuario {Id=3, Login="user3", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Suporte, EquipeId=1},
+				new Usuario {Id=4, Login="user4", Senha="123", Daltonismo=false, TipoAcesso=EnumTipoUsuario.Desenvolvimento, EquipeId=2},
+				new Usuario {Id=5, Login="user5", Senha="123", Daltonismo=true, TipoAcesso=EnumTipoUsuario.Desenvolvimento, EquipeId=2}
 			};
 			usuarios.ForEach(user => context.Usuarios.Add(user));
 			context.SaveChanges();

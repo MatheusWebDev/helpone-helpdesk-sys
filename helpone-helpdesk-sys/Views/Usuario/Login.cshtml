@@ -1,4 +1,6 @@
-﻿@{
+﻿@model helpone_helpdesk_sys.Models.Usuario
+
+@{
 	Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 	ViewBag.Title = "Login";
 }
@@ -8,15 +10,27 @@
 		<div class="row align-items-center justify-content-center">
 			<div class="col d-flex flex-column text-center justify-content-center" style="min-height: 85vh;">
 				<h1 class="text-white">Qual o seu nível de acesso?</h1>
-				<div>
-					<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">
-						<i class="fas fa-user mr-2"></i>
-						Operador
-					</a>
-					<a class="btn btn-primary btn-lg m-3 user-level__login-link" href="@Url.Action("Index", "Home")" role="button">
-						<i class="fas fa-user mr-2"></i>
-						Equipe de suporte
-					</a>
+				<div class="d-flex justify-content-center">
+					@using (Html.BeginForm("Logar", "Usuario", new { id = 1 }))
+					{
+						@Html.AntiForgeryToken()
+						<div class="form-actions no-color">
+							<button class="btn btn-primary btn-lg m-3" type="submit">
+								<i class="fas fa-user mr-2"></i>
+								Operador
+							</button>
+						</div>
+					}
+					@using (Html.BeginForm("Logar", "Usuario", new { id = 2 }))
+					{
+						@Html.AntiForgeryToken()
+						<div class="form-actions no-color">
+							<button class="btn btn-primary btn-lg m-3" type="submit">
+								<i class="fas fa-users mr-2"></i>
+								Equipe de Suporte || Desenv
+							</button>
+						</div>
+					}
 				</div>
 			</div>
 		</div>
