@@ -9,7 +9,7 @@ namespace helpone_helpdesk_sys.Models
 		public string Senha { get; set; }
 		public bool Daltonismo { get; set; }
 		public EnumTipoUsuario TipoAcesso { get; set; }
-		public int EquipeId { get; set; }
+		public int? EquipeId { get; set; }
 
 		public virtual Equipe Equipe { get; set; }
 	}

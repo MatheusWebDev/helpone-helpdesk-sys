@@ -43,61 +43,10 @@
 		</div>
 	}
 
-	<a class="btn btn-success mb-2" data-toggle="collapse" href="#feedbackCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
-		Finalizar chamado
-	</a>
-	<div class="collapse" id="feedbackCollapse">
-		<div class="card card-body">
-			@using (Html.BeginForm("Finalizar", "Chamado", new { id = Model.Id }))
-			{
-				@Html.AntiForgeryToken()
-				<div id="feedbackForm" class="d-flex flex-column">
-					<div class="d-flex mb-3">
-						<div id="util">
-							<p class="h5">Esse artigo foi útil?</p>
-							@*@Html.EditorFor(model => model.Feedback.SolucaoFoiUtil, new { htmlAttributes = new { @class = "form-control" } })*@
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="SolucaoFoiUtil" id="inlineS1" value="true">
-								<label class="form-check-label" for="inlineS1">
-									<button type="button" class="btn btn-success"><i class="fas fa-thumbs-up"></i></button>
-								</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="SolucaoFoiUtil" id="inlineS2" value="false">
-								<label class="form-check-label" for="inlineS2">
-									<button type="button" class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button>
-								</label>
-							</div>
-						</div>
-						<div id="nivel" class="ml-5">
-							<p class="h5">Qão satisfeito com atendimento?</p>
-							@*@Html.EditorFor(model => model.Feedback.SolucaoFoiUtil, new { htmlAttributes = new { @class = "form-control" } })*@
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="NivelSatisfacao" id="inlineN1" value="1">
-								<label class="form-check-label" for="inlineN1">1</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="NivelSatisfacao" id="inlineN2" value="2">
-								<label class="form-check-label" for="inlineN2">2</label>
-							</div>
-							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="NivelSatisfacao" id="inlineN3" value="3">
-								<label class="form-check-label" for="inlineN3">3</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="Mensagem" class="h5">Feedback</label>
-						<textarea class="form-control" id="Mensagem" name="Mensagem" rows="6"></textarea>
-						@Html.ValidationMessageFor(model => model.Feedback.Mensagem, "", new { @class = "text-danger" })
-					</div>
-				</div>
-				<div class="form-actions no-color">
-					<input type="submit" value="Enviar" class="btn btn-success" />
-				</div>
-			}
-		</div>
-	</div>
+	@if (Model.Feedback == null)
+	{
+		@Html.Partial("Finalizar", Model)
+	}
 
 </div>
 

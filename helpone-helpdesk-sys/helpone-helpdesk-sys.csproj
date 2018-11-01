@@ -264,6 +264,9 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\star-rating\star-rating.js" />
+    <Content Include="Scripts\star-rating\star-rating.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -300,6 +303,7 @@
     <Content Include="Views\Chamado\Acompanhar.cshtml" />
     <Content Include="Views\Chamado\Editar.cshtml" />
     <Content Include="Views\Chamado\Index.cshtml" />
+    <Content Include="Views\Chamado\Finalizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

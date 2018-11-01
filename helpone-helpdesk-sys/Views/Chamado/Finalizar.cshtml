@@ -1,0 +1,56 @@
+﻿@model helpone_helpdesk_sys.Models.Chamados.Chamado
+
+<a class="btn btn-success mb-2" data-toggle="collapse" href="#feedbackCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+	Finalizar chamado
+</a>
+<div class="collapse" id="feedbackCollapse">
+	<div class="card card-body">
+		@using (Html.BeginForm("Finalizar", "Chamado", new { id = Model.Id }))
+		{
+			@Html.AntiForgeryToken()
+			<div id="feedbackForm" class="d-flex flex-column">
+				<div class="d-flex mb-3">
+					<div id="util">
+						<p class="h5">Esse artigo foi útil?</p>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input input-radio-hide" type="checkbox" name="SolucaoFoiUtil" id="inlineS1" value="true">
+							<label id="thumbs-up" class="form-check-label btn btn-success" for="inlineS1">
+								<i class="fas fa-thumbs-up"></i>
+							</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input input-radio-hide" type="checkbox" name="SolucaoFoiUtil" id="inlineS2" value="false">
+							<label id="thumbs-down" class="form-check-label btn btn-danger" for="inlineS2">
+								<i class="fas fa-thumbs-down"></i>
+							</label>
+						</div>
+					</div>
+					<div id="nivel" class="ml-5 d-flex flex-column">
+						<p class="h5 mb-0" for="rating-star">Qão satisfeito com atendimento?</p>
+						<div class="rating" id="rating-star">
+							<input type="radio" id="star5" name="NivelSatisfacao" value="5" />
+							<label for="star5" title="Rocks!">5 stars</label>
+							<input type="radio" id="star4" name="NivelSatisfacao" value="4" />
+							<label for="star4" title="Pretty good">4 stars</label>
+							<input type="radio" id="star3" name="NivelSatisfacao" value="3" />
+							<label for="star3" title="Meh">3 stars</label>
+							<input type="radio" id="star2" name="NivelSatisfacao" value="2" />
+							<label for="star2" title="Kinda bad">2 stars</label>
+							<input type="radio" id="star1" name="NivelSatisfacao" value="1" />
+							<label for="star1" title="Sucks big time">1 star</label>
+						</div>
+						@*<input type="range" class="custom-range" min="0" max="5" id="NivelSatisfacaoRange">*@
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="Mensagem" class="h5">Feedback</label>
+					<textarea class="form-control" id="Mensagem" name="Mensagem" rows="6"></textarea>
+					@Html.ValidationMessageFor(model => model.Feedback.Mensagem, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="form-actions no-color">
+				<input type="submit" value="Enviar" class="btn btn-success" />
+			</div>
+		}
+	</div>
+</div>

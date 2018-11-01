@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using helpone_helpdesk_sys.DAL;
+using helpone_helpdesk_sys.Models;
 using helpone_helpdesk_sys.Models.Chamados;
 using helpone_helpdesk_sys.Models.Enums;
 
@@ -51,9 +52,11 @@ namespace helpone_helpdesk_sys.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				Usuario usuarioOperador = db.Usuarios.Find(1);
+				chamado.UsuarioID = usuarioOperador.Id;
+
 				chamado.Status = EnumStatus.AguardandoResposta;
 				chamado.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				chamado.UsuarioID = 1; // TODO: implementar depois -> pegar ID do usuario logado
 
 				var listaSubtSuporte = db.Subtopicos.Where(st => st.TopicoID == 1).ToList();
 				var listaSubtDev = db.Subtopicos.Where(st => st.TopicoID == 2).ToList();
@@ -179,7 +182,7 @@ namespace helpone_helpdesk_sys.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult Finalizar([Bind(Include = "SolucaoFoiUtil,NivelSatisfacao,Mensagem")] Feedback feedback, int id)
 		{
-			// Se usuário NÃO informar NADA => salva chamado comoo 'SemFeedback'
+			// Se usuário NÃO informar NADA => salva chamado como 'SemFeedback'
 			if (feedback.NivelSatisfacao == 0 && (feedback.Mensagem == null || feedback.Mensagem == ""))
 			{
 				Chamado chamado = db.Chamados.Find(id);
@@ -199,10 +202,10 @@ namespace helpone_helpdesk_sys.Controllers
 				{
 					chamado.Status = EnumStatus.FinalizadoFeedbackNegativo;
 				}
+				feedback.UsuarioID = chamado.UsuarioID;
 				feedback.Chamado = chamado;
 				feedback.ChamadoID = chamado.Id;
 				feedback.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				feedback.UsuarioID = 1; // implementar depois
 				chamado.Feedback = feedback;
 				db.Feedbacks.Add(feedback);
 				db.Entry(chamado).State = EntityState.Modified;
