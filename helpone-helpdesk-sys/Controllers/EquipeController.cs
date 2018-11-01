@@ -14,7 +14,7 @@ namespace helpone_helpdesk_sys.Controllers
         // GET: Equipe
         public ActionResult Index()
         {
-            return View(db.Equipes.Include("ListaMembros").ToList());
+            return View(db.Equipes.ToList());
         }
 
         // GET: Equipe/Details/5

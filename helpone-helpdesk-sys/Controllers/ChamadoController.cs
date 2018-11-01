@@ -15,8 +15,15 @@ namespace helpone_helpdesk_sys.Controllers
 	{
 		private HelpDeskContext db = new HelpDeskContext();
 
-		// GET: Chamado
+		// GET: Chamado (Lista Chamados do Usuario) [OPERADOR]
 		public ActionResult Index()
+		{
+			var chamados = db.Chamados.ToList();
+			return View(chamados);
+		}
+
+		// GET: Chamado (Lista Chamados para serem atendidos) [SUPORTE]
+		public ActionResult IndexSup()
 		{
 			var chamados = db.Chamados.ToList();
 			return View(chamados);
