@@ -29,12 +29,7 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="d-inline-block">
-									<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="Matheus Fernandes">
-								</span>
-								<span class="d-inline-block">
-									Matheus Fernandes
-								</span>
+								@Html.Partial("_UserLogged")
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								@Html.ActionLink("Meus chamados", "Index", "Chamado", new { area = "" }, new { @class = "dropdown-item" })

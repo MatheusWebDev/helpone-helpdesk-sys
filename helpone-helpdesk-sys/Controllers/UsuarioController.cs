@@ -25,10 +25,10 @@ namespace helpone_helpdesk_sys.Controllers
 
 			if(usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Suporte || usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Desenvolvimento)
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Home", usuario);
 			} else if (usuario.TipoAcesso == Models.Enums.EnumTipoUsuario.Operador)
 			{
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Home", usuario);
 			}
 			throw new HttpException(401, "Unauthorized access");
 		}
