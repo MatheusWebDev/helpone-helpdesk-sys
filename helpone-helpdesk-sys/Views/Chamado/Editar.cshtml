@@ -16,15 +16,15 @@
 
 		<div class="form-group">
 			<label for="Subtopico_TopicoID">Em que podemos ajudar?</label>
-			@Html.DropDownListFor(model => model.Subtopico.TopicoID, (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control" })
-			@*@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "selecione topico", htmlAttributes: new { @class = "form-control" })*@
+			@*@Html.DropDownListFor(model => model.Subtopico.TopicoID, (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control" })*@
+			@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control" })
 			@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
 		</div>
 
 		<div class="form-group">
 			<label for="SubtopicoID">Qual problema está tendo?</label>
-			@Html.DropDownListFor(model => model.Subtopico.Id, (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control" })
-			@*@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "selecione subtopico", htmlAttributes: new { @class = "form-control" })*@
+			@*@Html.DropDownListFor(model => model.Subtopico.Id, (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control" })*@
+			@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control" })
 			@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
 		</div>
 

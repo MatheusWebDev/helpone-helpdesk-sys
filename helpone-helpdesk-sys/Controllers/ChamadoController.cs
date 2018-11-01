@@ -120,6 +120,8 @@ namespace helpone_helpdesk_sys.Controllers
 					// SE mudar o Subtopico
 					if (!chamadoEditar.SubtopicoID.Equals(chamadoForm.SubtopicoID))
 					{
+						chamadoEditar.SubtopicoID = chamadoForm.SubtopicoID;
+
 						var listaSubtSuporte = db.Subtopicos.Where(st => st.TopicoID == 1).ToList();
 						var listaSubtDev = db.Subtopicos.Where(st => st.TopicoID == 2).ToList();
 						if (listaSubtSuporte.Any(st => st.Id == chamadoForm.SubtopicoID))
@@ -135,13 +137,17 @@ namespace helpone_helpdesk_sys.Controllers
 							chamadoEditar.EquipeAtendimento = EnumTipoEquipe.Suporte;
 						}
 					}
-
+					// SE mudar o Titulo
+					if (!chamadoEditar.Titulo.Equals(chamadoForm.Titulo))
+					{
+						chamadoEditar.Titulo = chamadoForm.Titulo;
+					}
 					// Edita o 'Conteudo' deste chamadoEditar
 					Conteudo conteudoEditar = chamadoEditar.Conteudos.First();
 					conteudoEditar.ConteudoChamado = conteudoForm;
 					conteudoEditar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-					db.Entry(conteudoEditar).State = EntityState.Modified;
 
+					db.Entry(conteudoEditar).State = EntityState.Modified;
 					db.Entry(chamadoEditar).State = EntityState.Modified;
 				}
 
