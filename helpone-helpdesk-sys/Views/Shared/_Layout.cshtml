@@ -29,9 +29,7 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								@*@section UserLogged{*@
 								@{ Html.RenderAction("UserLogged", "Home"); }
-								@*}*@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								@Html.ActionLink("Meus chamados", "Index", "Chamado", new { area = "" }, new { @class = "dropdown-item" })
@@ -45,6 +43,16 @@
 			</div>
 		</nav>
 	</header>
+
+	@{
+		if (ViewContext.RouteData.Values["controller"].ToString().Equals("Home"))
+		{
+			Html.RenderAction("SectionHero", "Home");
+		} else
+		{
+			Html.RenderAction("Breadcrumb", "Home");
+		}
+	}
 
 	<main class="container body-content">
 		@RenderBody()

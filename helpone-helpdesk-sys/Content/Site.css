@@ -15,6 +15,24 @@
 	opacity: 0;
 }
 
+.search-input {
+	border-radius: 1.5rem;
+	padding-left: 2rem;
+	height: auto;
+}
+
+.min-h-1 {
+	min-height: 2rem;
+}
+
+.min-h-2 {
+	min-height: 5rem;
+}
+
+.min-h-3 {
+	min-height: 10rem;
+}
+
 .rating {
 	transform: translateX(-85px);
 }

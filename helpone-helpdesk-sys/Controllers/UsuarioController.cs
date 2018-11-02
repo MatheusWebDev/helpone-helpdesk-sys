@@ -20,6 +20,11 @@ namespace helpone_helpdesk_sys.Controllers
 		public ActionResult Logar(int id)
 		{
 			Usuario usuario = db.Usuarios.Find(id);
+			if (Session["userLogged"] != null && Session["userLoggedId"] != null)
+			{
+				Session["userLogged"] = null;
+				Session["userLoggedId"] = null;
+			}
 			return RedirectToAction("Index", "Home", usuario);
 		}
 

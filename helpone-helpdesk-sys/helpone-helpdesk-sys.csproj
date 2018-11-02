@@ -305,8 +305,12 @@
     <Content Include="Views\Chamado\Index.cshtml" />
     <Content Include="Views\Chamado\Finalizar.cshtml" />
     <Content Include="Views\Shared\_UserLogged.cshtml" />
-    <Content Include="Views\Home\IndexOpe.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Chamado\IndexSup.cshtml" />
+    <Content Include="Views\Shared\_SectionHeroOpe.cshtml" />
+    <Content Include="Views\Shared\_SectionHeroSup.cshtml" />
+    <Content Include="Views\Shared\_NaoAutorizado.cshtml" />
+    <Content Include="Views\Shared\_Breadcrumb.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
