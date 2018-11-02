@@ -1,7 +1,29 @@
-﻿@model helpone_helpdesk_sys.Models.Usuario
+﻿@{
+	var userLogado = Session["userLogged"].ToString();
+}
+
+
 <span class="d-inline-block">
-	<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="@Html.DisplayFor(model => model.Login)">
+	<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="@{
+		if (userLogado == null)
+		{
+			@:notLogado
+		}
+		else
+		{
+			<text>@userLogado</text>
+		}
+	}">
 </span>
 <span class="d-inline-block">
-	@Html.DisplayFor(model => model.Login)
+	@{
+		if (userLogado == null)
+		{
+			@:notLogado
+		}
+		else
+		{
+			<text>@userLogado</text>
+		}
+	}
 </span>
