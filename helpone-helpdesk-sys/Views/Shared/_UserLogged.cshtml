@@ -4,26 +4,13 @@
 
 
 <span class="d-inline-block">
-	<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="@{
-		if (userLogado == null)
-		{
-			@:notLogado
-		}
-		else
-		{
-			<text>@userLogado</text>
-		}
-	}">
+	<img class="rounded-circle" src="~/Content/images/user-circle.png" height="42" alt="@userLogado">
 </span>
 <span class="d-inline-block">
 	@{
-		if (userLogado == null)
+		if (userLogado != null)
 		{
-			@:notLogado
-		}
-		else
-		{
-			<text>@userLogado</text>
+			@userLogado
 		}
 	}
 </span>

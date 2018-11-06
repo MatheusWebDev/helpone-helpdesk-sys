@@ -11,6 +11,10 @@
     white-space: normal;
 }
 
+.filtro {
+	overflow: auto;
+}
+
 .input-radio-hide {
 	opacity: 0;
 }

@@ -282,7 +282,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\IndexSup.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -306,7 +305,6 @@
     <Content Include="Views\Chamado\Finalizar.cshtml" />
     <Content Include="Views\Shared\_UserLogged.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Chamado\IndexSup.cshtml" />
     <Content Include="Views\Shared\_SectionHeroOpe.cshtml" />
     <Content Include="Views\Shared\_SectionHeroSup.cshtml" />
     <Content Include="Views\Shared\_NaoAutorizado.cshtml" />

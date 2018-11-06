@@ -2,6 +2,29 @@
 
 @{
 	ViewBag.Title = "Index";
+	var activeAll = String.IsNullOrEmpty(ViewBag.AllFilterParm) ? "active" : "";
+	string[] active = new string[] { "", "", "", "", "", "" };
+	switch (ViewBag.StatusFilterParm)
+	{
+		case "aguardando":
+			active[0] = "active";
+			break;
+		case "cancelados":
+			active[1] = "active";
+			break;
+		case "respondidos":
+			active[2] = "active";
+			break;
+		case "finalizados":
+			active[3] = "active";
+			break;
+		case "finalizados-feedback-pos":
+			active[4] = "active";
+			break;
+		default:
+			active[0] = "";
+			break;
+	}
 }
 
 <section class="content">
@@ -12,32 +35,49 @@
 				<h4>Meus chamados</h4>
 				@Html.ActionLink("Abrir chamado", "Abrir", new { area = "" }, new { @class = "btn btn-info btn-sm" })
 			</div>
-			<div class="filtro border-top border-right border-left px-4 py-3 mt-2">
-				<a href="#" class="text-secondary filtro__link"><i class="fas fa-filter"></i></a>
+			<div class="filtro border-top border-right border-left p-2 mt-2">
+				<button class="btn btn-link text-secondary float-left" type="button" data-toggle="collapse" data-target="#filterBtns" aria-expanded="false" aria-controls="filterBtns">
+					<i class="fas fa-filter"></i>
+				</button>
+				<div class="collapse float-left pt-1" id="filterBtns">
+					@Html.ActionLink("Todos", "Index", new { filter = ViewBag.AllFilterParm }, new { @class = "btn btn-info btn-sm " + activeAll })
+					@Html.ActionLink("Aguardando Resposta", "Index", new { filter = "aguardando" }, new { @class = "btn btn-info btn-sm " + active[0] })
+					@Html.ActionLink("Respondido", "Index", new { filter = "respondidos" }, new { @class = "btn btn-info btn-sm " + active[2] })
+					@Html.ActionLink("Finalizado", "Index", new { filter = "finalizados" }, new { @class = "btn btn-info btn-sm " + active[3] })
+					@Html.ActionLink("Feedback Positivo", "Index", new { filter = "finalizados-feedback-pos" }, new { @class = "btn btn-info btn-sm " + active[4] })
+					@Html.ActionLink("Cancelado", "Index", new { filter = "cancelados" }, new { @class = "btn btn-info btn-sm " + active[1] })
+				</div>
 			</div>
-			<table class="table table-hover border-right border-left border-bottom">
-				<thead class="thead-light">
-					<tr>
-						<th scope="col">ID</th>
-						<th scope="col">Titulo do chamado</th>
-						<th scope="col">Data criação</th>
-						<th scope="col">Status</th>
-						<th scope="col">Equipe de Atend.</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (var item in Model)
-					{
+				<table class="table table-hover border-right border-left border-bottom">
+					<thead class="thead-light">
 						<tr>
-							<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-							<td><a href="@Url.Action("Acompanhar", "Chamado", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
-							<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
-							<td>@Html.DisplayFor(modelItem => item.Status)</td>
-							<td>@Html.DisplayFor(modelItem => item.EquipeAtendimento)</td>
+							<th scope="col">
+								@Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm })
+							</th>
+							<th scope="col">
+								@Html.ActionLink("Titulo do chamado", "Index", new { sortOrder = ViewBag.TituloSortParm })
+							</th>
+							<th scope="col">
+								@Html.ActionLink("Data abertura", "Index", new { sortOrder = ViewBag.DateSortParm })
+								@*Depois voltar o tipo de data para DATE em vez de string*@
+							</th>
+							<th scope="col">Status</th>
+							<th scope="col">Equipe de Atend.</th>
 						</tr>
-					}
-				</tbody>
-			</table>
-		</div><!-- ./ artigo-header -->
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+								<td><a href="@Url.Action("Acompanhar", "Chamado", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
+								<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+								<td>@Html.DisplayFor(modelItem => item.Status)</td>
+								<td>@Html.DisplayFor(modelItem => item.EquipeAtendimento)</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div><!-- ./ artigo-header -->
 	</div>
 </section>

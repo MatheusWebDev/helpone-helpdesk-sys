@@ -16,17 +16,81 @@ namespace helpone_helpdesk_sys.Controllers
 		private HelpDeskContext db = new HelpDeskContext();
 
 		// GET: Chamado (Lista Chamados do Usuario) [OPERADOR]
-		public ActionResult Index()
+		public ActionResult Index(string sortOrder, string filter)
 		{
-			var chamados = db.Chamados.ToList();
-			return View(chamados);
-		}
-
-		// GET: Chamado (Lista Chamados para serem atendidos) [SUPORTE]
-		public ActionResult IndexSup()
-		{
-			var chamados = db.Chamados.ToList();
-			return View(chamados);
+			ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
+			ViewBag.TituloSortParm = sortOrder == "Titulo" ? "titulo_desc" : "Titulo";
+			ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+			ViewBag.AllFilterParm = String.IsNullOrEmpty(filter) ? "todos" : "";
+			ViewBag.StatusFilterParm = "";
+			var chamados = from c in db.Chamados
+								select c;
+			switch (sortOrder)
+			{
+				case "id_desc":
+					chamados = chamados.OrderByDescending(c => c.Id);
+					break;
+				case "Titulo":
+					chamados = chamados.OrderBy(c => c.Titulo);
+					break;
+				case "titulo_desc":
+					chamados = chamados.OrderByDescending(c => c.Titulo);
+					break;
+				case "Date":
+					chamados = chamados.OrderBy(c => c.DataCriacao);
+					break;
+				case "date_desc":
+					chamados = chamados.OrderByDescending(c => c.DataCriacao);
+					break;
+				default:
+					chamados = chamados.OrderBy(c => c.Id);
+					break;
+			}
+			Usuario userLogged = db.Usuarios.Find(Session["userLoggedId"]); // TODO: fazer comparação em todos 'CASE' do SWITCH para exibir apenas os chamados daquele usuário (Se ele for operador))
+			switch (filter)
+			{
+				case "todos":
+					chamados = chamados.Where(c => c.Id > 0 && c.UsuarioID == userLogged.Id);
+					break;
+				case "aguardando":
+					chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta);
+					ViewBag.StatusFilterParm = "aguardando";
+					break;
+				case "cancelados":
+					chamados = chamados.Where(c => c.Status == EnumStatus.Cancelado);
+					ViewBag.StatusFilterParm = "cancelados";
+					break;
+				case "respondidos":
+					chamados = chamados.Where(c => c.Status == EnumStatus.ChamadoRespondido);
+					ViewBag.StatusFilterParm = "respondidos";
+					break;
+				case "finalizados-feedback-pos":
+					chamados = chamados.Where(c => c.Status == EnumStatus.FinalizadoFeedbackPositivo);
+					ViewBag.StatusFilterParm = "finalizados-feedback-pos";
+					break;
+				case "finalizados":
+					chamados = chamados.Where(c => c.Status == EnumStatus.FinalizadoFeedbackNegativo ||
+															 c.Status == EnumStatus.FinalizadoFeedbackPositivo ||
+															 c.Status == EnumStatus.FinalizadoSemFeedback);
+					ViewBag.StatusFilterParm = "finalizados";
+					break;
+				default:
+					if (userLogged.TipoAcesso == EnumTipoUsuario.Suporte)
+					{
+						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
+																 c.EquipeAtendimento == EnumTipoEquipe.Suporte);
+					} else if (userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
+					{
+						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
+																 c.EquipeAtendimento == EnumTipoEquipe.Desenvolvimento);
+					} else
+					{
+						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
+																 c.UsuarioID == userLogged.Id);
+					}
+					break;
+			}
+			return View(chamados.ToList());
 		}
 
 		// GET: Chamado/Acompanhar/5
@@ -59,8 +123,8 @@ namespace helpone_helpdesk_sys.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				Usuario usuarioOperador = db.Usuarios.Find(1);
-				chamado.UsuarioID = usuarioOperador.Id;
+				Usuario usuario = db.Usuarios.Find(Session["userLoggedId"]);
+				chamado.UsuarioID = usuario.Id;
 
 				chamado.Status = EnumStatus.AguardandoResposta;
 				chamado.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
@@ -82,9 +146,9 @@ namespace helpone_helpdesk_sys.Controllers
 				// Cria uma instância de 'Conteudo' para salvar na lista de 'Conteudos' do chamado
 				Conteudo conteudoSalvar = new Conteudo();
 				conteudoSalvar.ConteudoChamado = conteudoForm;
-				conteudoSalvar.UsuarioID = 1; // TODO: implementar depois -> pegar ID do usuario logado
-				conteudoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
-				conteudoSalvar.Chamado = chamado; // salva o chamado no 'conteudo'
+				conteudoSalvar.UsuarioID = usuario.Id;
+				conteudoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now); // TODO: Depois voltar o tipo de data para DATE em vez de string
+				conteudoSalvar.ChamadoID = chamado.Id; // salva o chamado no 'conteudo'
 				db.Conteudos.Add(conteudoSalvar);
 
 				chamado.Conteudos.Add(conteudoSalvar); // salva o conteudo no chamado
