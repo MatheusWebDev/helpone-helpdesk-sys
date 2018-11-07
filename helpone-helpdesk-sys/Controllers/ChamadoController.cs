@@ -15,13 +15,14 @@ namespace helpone_helpdesk_sys.Controllers
 	{
 		private HelpDeskContext db = new HelpDeskContext();
 
-		// GET: Chamado (Lista Chamados do Usuario) [OPERADOR]
+		// GET: Chamado [Lista de Chamados]
 		public ActionResult Index(string sortOrder, string filter)
 		{
 			ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
 			ViewBag.TituloSortParm = sortOrder == "Titulo" ? "titulo_desc" : "Titulo";
 			ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 			ViewBag.AllFilterParm = String.IsNullOrEmpty(filter) ? "todos" : "";
+			ViewBag.ActiveClassAllFilter = String.IsNullOrEmpty(ViewBag.AllFilterParm) ? "active" : "";
 			ViewBag.StatusFilterParm = "";
 			var chamados = from c in db.Chamados
 								select c;
@@ -79,16 +80,27 @@ namespace helpone_helpdesk_sys.Controllers
 					{
 						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
 																 c.EquipeAtendimento == EnumTipoEquipe.Suporte);
-					} else if (userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
+					}
+					else if (userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
 					{
 						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
 																 c.EquipeAtendimento == EnumTipoEquipe.Desenvolvimento);
-					} else
+					}
+					else
 					{
-						chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta &&
+						chamados = chamados.Where(c => (c.Status == EnumStatus.AguardandoResposta || c.Status == EnumStatus.ChamadoRespondido) &&
 																 c.UsuarioID == userLogged.Id);
 					}
 					break;
+			}
+
+			if (userLogged.TipoAcesso == EnumTipoUsuario.Suporte || userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
+			{
+				ViewBag.TipoAcaoUsuario = "Atender";
+			}
+			else
+			{
+				ViewBag.TipoAcaoUsuario = "Acompanhar";
 			}
 			return View(chamados.ToList());
 		}
@@ -139,7 +151,9 @@ namespace helpone_helpdesk_sys.Controllers
 				else if (listaSubtDev.Any(st => st.Id == chamado.SubtopicoID))
 				{
 					chamado.EquipeAtendimento = EnumTipoEquipe.Desenvolvimento;
-				} else {
+				}
+				else
+				{
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
@@ -223,6 +237,8 @@ namespace helpone_helpdesk_sys.Controllers
 
 					db.Entry(conteudoEditar).State = EntityState.Modified;
 					db.Entry(chamadoEditar).State = EntityState.Modified;
+				} else {
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
 				db.SaveChanges();
@@ -284,6 +300,66 @@ namespace helpone_helpdesk_sys.Controllers
 
 			db.SaveChanges();
 			return RedirectToAction("Index");
+		}
+
+		// GET: Chamado/Atender/5 [VISUALIZAR/ANÁLISE + FORMULÁRIO]
+		public ActionResult Atender(int? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Chamado chamado = db.Chamados.Find(id);
+			if (chamado == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.TopicoID = new SelectList(db.Topicos, "Id", "Titulo");
+			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo");
+			return View(chamado);
+		}
+
+		// POST: Chamado/Atender/5 [AÇÃO SALVA RESPOSTA DO ATENDIMENTO e ACOMPANHAMENTO]
+		[HttpPost, ActionName("Responder")]
+		[ValidateAntiForgeryToken]
+		public ActionResult Atender(String conteudoForm, int id)
+		{
+			if (ModelState.IsValid)
+			{
+				List<Chamado> acharChamadoOld = db.Chamados.Where(c => c.Id == id).Include(c => c.Conteudos).ToList();
+				Usuario usuario = db.Usuarios.Find(Session["userLoggedId"]);
+				if (acharChamadoOld != null || acharChamadoOld.Count < 2)
+				{
+					Chamado chamadoAtender = acharChamadoOld.First();
+
+					chamadoAtender.Status = chamadoAtender.Status == EnumStatus.AguardandoResposta ? EnumStatus.ChamadoRespondido : EnumStatus.AguardandoResposta;
+
+					// Cria uma instância de 'Conteudo' para salvar na lista de 'Conteudos' do chamado
+					Conteudo conteudoAtendedimentoSalvar = new Conteudo();
+					conteudoAtendedimentoSalvar.ConteudoChamado = conteudoForm;
+					conteudoAtendedimentoSalvar.UsuarioID = usuario.Id;
+					conteudoAtendedimentoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now); // TODO: Depois voltar o tipo de data para DATE em vez de string
+					conteudoAtendedimentoSalvar.ChamadoID = chamadoAtender.Id; // salva o chamado no 'conteudo'
+					db.Conteudos.Add(conteudoAtendedimentoSalvar);
+
+					db.Entry(chamadoAtender).State = EntityState.Modified;
+				}
+				else
+				{
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				}
+
+				db.SaveChanges();
+				if (usuario.TipoAcesso == EnumTipoUsuario.Desenvolvimento || usuario.TipoAcesso == EnumTipoUsuario.Suporte)
+				{
+					return RedirectToAction("Atender", new { id });
+				} else
+				{
+					return RedirectToAction("Acompanhar", new { id });
+				}
+			}
+
+			return View();
 		}
 	}
 }
