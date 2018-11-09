@@ -2,35 +2,6 @@
 
 @{
 	ViewBag.Title = "Consultar chamados";
-	string show = "";
-	string[] active = new string[] { "", "", "", "", "", "" };
-	switch (ViewBag.StatusFilterParm)
-	{
-		case "aguardando":
-			active[0] = "active";
-			show = "show";
-			break;
-		case "cancelados":
-			active[1] = "active";
-			show = "show";
-			break;
-		case "respondidos":
-			active[2] = "active";
-			show = "show";
-			break;
-		case "finalizados":
-			active[3] = "active";
-			show = "show";
-			break;
-		case "finalizados-feedback-pos":
-			active[4] = "active";
-			show = "show";
-			break;
-		default:
-			active[0] = "";
-			show = "";
-			break;
-	}
 }
 
 <section class="content">
@@ -45,13 +16,13 @@
 				<button class="btn btn-link text-secondary float-left" type="button" data-toggle="collapse" data-target="#filterBtns" aria-expanded="false" aria-controls="filterBtns">
 					<i class="fas fa-filter"></i>
 				</button>
-				<div class="collapse float-left pt-1 @show" id="filterBtns">
-					@Html.ActionLink("Todos", "Index", new { sortOrder = ViewBag.QuerySort, filter = ViewBag.AllFilterParm }, new { @class = "btn btn-info btn-sm " + ViewBag.ActiveClassAllFilter })
-					@Html.ActionLink("Aguardando Resposta", "Index", new { sortOrder = ViewBag.QuerySort, filter = "aguardando" }, new { @class = "btn btn-info btn-sm " + active[0] })
-					@Html.ActionLink("Respondidos", "Index", new { sortOrder = ViewBag.QuerySort, filter = "respondidos" }, new { @class = "btn btn-info btn-sm " + active[2] })
-					@Html.ActionLink("Finalizados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados" }, new { @class = "btn btn-info btn-sm " + active[3] })
-					@Html.ActionLink("Feedback Positivo", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados-feedback-pos" }, new { @class = "btn btn-info btn-sm " + active[4] })
-					@Html.ActionLink("Cancelados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "cancelados" }, new { @class = "btn btn-info btn-sm " + active[1] })
+				<div class="collapse float-left pt-1 @ViewBag.ClassesChangedFilter.Item1" id="filterBtns">
+					@Html.ActionLink("Todos", "Index", new { sortOrder = ViewBag.QuerySort, filter = "todos" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[5] })
+					@Html.ActionLink("Aguardando Resposta", "Index", new { sortOrder = ViewBag.QuerySort, filter = "aguardando" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[0] })
+					@Html.ActionLink("Respondidos", "Index", new { sortOrder = ViewBag.QuerySort, filter = "respondidos" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[2] })
+					@Html.ActionLink("Finalizados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[3] })
+					@Html.ActionLink("Feedback Positivo", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados-feedback-pos" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[4] })
+					@Html.ActionLink("Cancelados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "cancelados" }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[1] })
 				</div>
 			</div>
 				<table class="table table-hover border-right border-left border-bottom">

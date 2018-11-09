@@ -15,11 +15,12 @@ namespace helpone_helpdesk_sys.Controllers
 	{
 		private HelpDeskContext db = new HelpDeskContext();
 
-		public void ToggleActiveClass()
+		public Tuple<string, string[]> ToggleActiveClass(string filterParam)
 		{
-			string show = "";
-			string[] active = new string[] { "", "", "", "", "", "" };
-			switch (ViewBag.StatusFilterParm)
+			string show;
+			string[] active = new string[7];
+
+			switch (filterParam)
 			{
 				case "aguardando":
 					active[0] = "active";
@@ -41,11 +42,17 @@ namespace helpone_helpdesk_sys.Controllers
 					active[4] = "active";
 					show = "show";
 					break;
+				case "todos":
+					active[5] = "active";
+					show = "show";
+					break;
 				default:
-					active[0] = "";
 					show = "";
 					break;
 			}
+
+			Tuple<string, string[]> tuple = new Tuple<string, string[]>(show, active);
+			return tuple;
 		}
 
 		// GET: Chamado [Lista de Chamados]
@@ -64,9 +71,8 @@ namespace helpone_helpdesk_sys.Controllers
 				ViewBag.QueryFilter = filter;
 			}
 
-			ViewBag.AllFilterParm = String.IsNullOrEmpty(filter) ? "todos" : "";
-			ViewBag.ActiveClassAllFilter = String.IsNullOrEmpty(ViewBag.AllFilterParm) ? "active" : "";
-			ViewBag.StatusFilterParm = "";
+			ViewBag.ClassesChangedFilter = ToggleActiveClass(filter);
+
 			var chamados = from c in db.Chamados
 								select c;
 			switch (sortOrder)
@@ -95,29 +101,23 @@ namespace helpone_helpdesk_sys.Controllers
 			{
 				case "todos":
 					chamados = chamados.Where(c => c.Id > 0 && c.UsuarioID == userLogged.Id);
-					ViewBag.StatusFilterParm = "todos";
 					break;
 				case "aguardando":
 					chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta);
-					ViewBag.StatusFilterParm = "aguardando";
 					break;
 				case "cancelados":
 					chamados = chamados.Where(c => c.Status == EnumStatus.Cancelado);
-					ViewBag.StatusFilterParm = "cancelados";
 					break;
 				case "respondidos":
 					chamados = chamados.Where(c => c.Status == EnumStatus.ChamadoRespondido);
-					ViewBag.StatusFilterParm = "respondidos";
 					break;
 				case "finalizados-feedback-pos":
 					chamados = chamados.Where(c => c.Status == EnumStatus.FinalizadoFeedbackPositivo);
-					ViewBag.StatusFilterParm = "finalizados-feedback-pos";
 					break;
 				case "finalizados":
 					chamados = chamados.Where(c => c.Status == EnumStatus.FinalizadoFeedbackNegativo ||
 															 c.Status == EnumStatus.FinalizadoFeedbackPositivo ||
 															 c.Status == EnumStatus.FinalizadoSemFeedback);
-					ViewBag.StatusFilterParm = "finalizados";
 					break;
 				default:
 					if (userLogged.TipoAcesso == EnumTipoUsuario.Suporte)
