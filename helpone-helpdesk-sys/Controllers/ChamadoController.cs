@@ -139,7 +139,7 @@ namespace helpone_helpdesk_sys.Controllers
 				chamado.UsuarioID = usuario.Id;
 
 				chamado.Status = EnumStatus.AguardandoResposta;
-				chamado.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+				chamado.DataCriacao = DateTime.Now;
 
 				var listaSubtSuporte = db.Subtopicos.Where(st => st.TopicoID == 1).ToList();
 				var listaSubtDev = db.Subtopicos.Where(st => st.TopicoID == 2).ToList();
@@ -161,7 +161,7 @@ namespace helpone_helpdesk_sys.Controllers
 				Conteudo conteudoSalvar = new Conteudo();
 				conteudoSalvar.ConteudoChamado = conteudoForm;
 				conteudoSalvar.UsuarioID = usuario.Id;
-				conteudoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now); // TODO: Depois voltar o tipo de data para DATE em vez de string
+				conteudoSalvar.DataCriacao = DateTime.Now;
 				conteudoSalvar.ChamadoID = chamado.Id; // salva o chamado no 'conteudo'
 				db.Conteudos.Add(conteudoSalvar);
 
@@ -204,7 +204,7 @@ namespace helpone_helpdesk_sys.Controllers
 				if (acharChamadoOld != null || acharChamadoOld.Count < 2)
 				{
 					Chamado chamadoEditar = acharChamadoOld.First();
-					chamadoEditar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+					chamadoEditar.DataCriacao = DateTime.Now;
 					// SE mudar o Subtopico
 					if (!chamadoEditar.SubtopicoID.Equals(chamadoForm.SubtopicoID))
 					{
@@ -233,7 +233,7 @@ namespace helpone_helpdesk_sys.Controllers
 					// Edita o 'Conteudo' deste chamadoEditar
 					Conteudo conteudoEditar = chamadoEditar.Conteudos.First();
 					conteudoEditar.ConteudoChamado = conteudoForm;
-					conteudoEditar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+					conteudoEditar.DataCriacao = DateTime.Now;
 
 					db.Entry(conteudoEditar).State = EntityState.Modified;
 					db.Entry(chamadoEditar).State = EntityState.Modified;
@@ -257,7 +257,7 @@ namespace helpone_helpdesk_sys.Controllers
 			Chamado chamado = db.Chamados.Find(id);
 
 			chamado.Status = EnumStatus.Cancelado;
-			chamado.DataFim = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+			chamado.DataFim = DateTime.Now;
 
 			db.Entry(chamado).State = EntityState.Modified;
 			db.SaveChanges();
@@ -274,7 +274,7 @@ namespace helpone_helpdesk_sys.Controllers
 			{
 				Chamado chamado = db.Chamados.Find(id);
 				chamado.Status = EnumStatus.FinalizadoSemFeedback;
-				chamado.DataFim = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+				chamado.DataFim = DateTime.Now;
 
 				db.Entry(chamado).State = EntityState.Modified;
 			}
@@ -292,7 +292,7 @@ namespace helpone_helpdesk_sys.Controllers
 				feedback.UsuarioID = chamado.UsuarioID;
 				feedback.Chamado = chamado;
 				feedback.ChamadoID = chamado.Id;
-				feedback.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now);
+				feedback.DataCriacao = DateTime.Now;
 				chamado.Feedback = feedback;
 				db.Feedbacks.Add(feedback);
 				db.Entry(chamado).State = EntityState.Modified;
@@ -338,7 +338,7 @@ namespace helpone_helpdesk_sys.Controllers
 					Conteudo conteudoAtendedimentoSalvar = new Conteudo();
 					conteudoAtendedimentoSalvar.ConteudoChamado = conteudoForm;
 					conteudoAtendedimentoSalvar.UsuarioID = usuario.Id;
-					conteudoAtendedimentoSalvar.DataCriacao = String.Format("{0:dd/MM/yyyy - HH:mm}", DateTime.Now); // TODO: Depois voltar o tipo de data para DATE em vez de string
+					conteudoAtendedimentoSalvar.DataCriacao = DateTime.Now;
 					conteudoAtendedimentoSalvar.ChamadoID = chamadoAtender.Id; // salva o chamado no 'conteudo'
 					db.Conteudos.Add(conteudoAtendedimentoSalvar);
 

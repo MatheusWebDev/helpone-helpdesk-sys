@@ -13,12 +13,12 @@ namespace helpone_helpdesk_sys.Models.Chamados
 		public string Titulo { get; set; }
 		public EnumStatus Status { get; set; }
 		public EnumTipoEquipe EquipeAtendimento { get; set; }
-		//[DataType(DataType.DateTime)]
-		//[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy - HH:mm}", ApplyFormatInEditMode = true)]
-		public String DataCriacao { get; set; }
-		//[DataType(DataType.DateTime)]
-		//[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy - HH:mm}", ApplyFormatInEditMode = true)]
-		public String DataFim { get; set; }
+		[DataType(DataType.DateTime)]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy - HH:mm}", ApplyFormatInEditMode = true)]
+		public DateTime DataCriacao { get; set; }
+		[DataType(DataType.DateTime)]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy - HH:mm}", ApplyFormatInEditMode = true)]
+		public DateTime DataFim { get; set; }
 		public int SubtopicoID { get; set; }
 		public int UsuarioID { get; set; }
 		public int FeedbackID { get; set; }
