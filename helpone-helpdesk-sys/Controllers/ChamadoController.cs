@@ -15,12 +15,55 @@ namespace helpone_helpdesk_sys.Controllers
 	{
 		private HelpDeskContext db = new HelpDeskContext();
 
+		public void ToggleActiveClass()
+		{
+			string show = "";
+			string[] active = new string[] { "", "", "", "", "", "" };
+			switch (ViewBag.StatusFilterParm)
+			{
+				case "aguardando":
+					active[0] = "active";
+					show = "show";
+					break;
+				case "cancelados":
+					active[1] = "active";
+					show = "show";
+					break;
+				case "respondidos":
+					active[2] = "active";
+					show = "show";
+					break;
+				case "finalizados":
+					active[3] = "active";
+					show = "show";
+					break;
+				case "finalizados-feedback-pos":
+					active[4] = "active";
+					show = "show";
+					break;
+				default:
+					active[0] = "";
+					show = "";
+					break;
+			}
+		}
+
 		// GET: Chamado [Lista de Chamados]
 		public ActionResult Index(string sortOrder, string filter)
 		{
 			ViewBag.IdSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
 			ViewBag.TituloSortParm = sortOrder == "Titulo" ? "titulo_desc" : "Titulo";
 			ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+			if(!String.IsNullOrEmpty(sortOrder))
+			{
+				ViewBag.QuerySort = sortOrder;
+			}
+
+			if (!String.IsNullOrEmpty(filter))
+			{
+				ViewBag.QueryFilter = filter;
+			}
+
 			ViewBag.AllFilterParm = String.IsNullOrEmpty(filter) ? "todos" : "";
 			ViewBag.ActiveClassAllFilter = String.IsNullOrEmpty(ViewBag.AllFilterParm) ? "active" : "";
 			ViewBag.StatusFilterParm = "";
@@ -52,6 +95,7 @@ namespace helpone_helpdesk_sys.Controllers
 			{
 				case "todos":
 					chamados = chamados.Where(c => c.Id > 0 && c.UsuarioID == userLogged.Id);
+					ViewBag.StatusFilterParm = "todos";
 					break;
 				case "aguardando":
 					chamados = chamados.Where(c => c.Status == EnumStatus.AguardandoResposta);

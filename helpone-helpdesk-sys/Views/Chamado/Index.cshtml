@@ -2,27 +2,33 @@
 
 @{
 	ViewBag.Title = "Consultar chamados";
-
+	string show = "";
 	string[] active = new string[] { "", "", "", "", "", "" };
 	switch (ViewBag.StatusFilterParm)
 	{
 		case "aguardando":
 			active[0] = "active";
+			show = "show";
 			break;
 		case "cancelados":
 			active[1] = "active";
+			show = "show";
 			break;
 		case "respondidos":
 			active[2] = "active";
+			show = "show";
 			break;
 		case "finalizados":
 			active[3] = "active";
+			show = "show";
 			break;
 		case "finalizados-feedback-pos":
 			active[4] = "active";
+			show = "show";
 			break;
 		default:
 			active[0] = "";
+			show = "";
 			break;
 	}
 }
@@ -39,26 +45,26 @@
 				<button class="btn btn-link text-secondary float-left" type="button" data-toggle="collapse" data-target="#filterBtns" aria-expanded="false" aria-controls="filterBtns">
 					<i class="fas fa-filter"></i>
 				</button>
-				<div class="collapse float-left pt-1" id="filterBtns">
-					@Html.ActionLink("Todos", "Index", new { filter = ViewBag.AllFilterParm }, new { @class = "btn btn-info btn-sm " + ViewBag.ActiveClassAllFilter })
-					@Html.ActionLink("Aguardando Resposta", "Index", new { filter = "aguardando" }, new { @class = "btn btn-info btn-sm " + active[0] })
-					@Html.ActionLink("Respondido", "Index", new { filter = "respondidos" }, new { @class = "btn btn-info btn-sm " + active[2] })
-					@Html.ActionLink("Finalizado", "Index", new { filter = "finalizados" }, new { @class = "btn btn-info btn-sm " + active[3] })
-					@Html.ActionLink("Feedback Positivo", "Index", new { filter = "finalizados-feedback-pos" }, new { @class = "btn btn-info btn-sm " + active[4] })
-					@Html.ActionLink("Cancelado", "Index", new { filter = "cancelados" }, new { @class = "btn btn-info btn-sm " + active[1] })
+				<div class="collapse float-left pt-1 @show" id="filterBtns">
+					@Html.ActionLink("Todos", "Index", new { sortOrder = ViewBag.QuerySort, filter = ViewBag.AllFilterParm }, new { @class = "btn btn-info btn-sm " + ViewBag.ActiveClassAllFilter })
+					@Html.ActionLink("Aguardando Resposta", "Index", new { sortOrder = ViewBag.QuerySort, filter = "aguardando" }, new { @class = "btn btn-info btn-sm " + active[0] })
+					@Html.ActionLink("Respondidos", "Index", new { sortOrder = ViewBag.QuerySort, filter = "respondidos" }, new { @class = "btn btn-info btn-sm " + active[2] })
+					@Html.ActionLink("Finalizados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados" }, new { @class = "btn btn-info btn-sm " + active[3] })
+					@Html.ActionLink("Feedback Positivo", "Index", new { sortOrder = ViewBag.QuerySort, filter = "finalizados-feedback-pos" }, new { @class = "btn btn-info btn-sm " + active[4] })
+					@Html.ActionLink("Cancelados", "Index", new { sortOrder = ViewBag.QuerySort, filter = "cancelados" }, new { @class = "btn btn-info btn-sm " + active[1] })
 				</div>
 			</div>
 				<table class="table table-hover border-right border-left border-bottom">
 					<thead class="thead-light">
 						<tr>
 							<th scope="col">
-								@Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm })
+								@Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IdSortParm, filter = ViewBag.QueryFilter })
 							</th>
 							<th scope="col">
-								@Html.ActionLink("Titulo do chamado", "Index", new { sortOrder = ViewBag.TituloSortParm })
+								@Html.ActionLink("Titulo do chamado", "Index", new { sortOrder = ViewBag.TituloSortParm, filter = ViewBag.QueryFilter })
 							</th>
 							<th scope="col">
-								@Html.ActionLink("Data abertura", "Index", new { sortOrder = ViewBag.DateSortParm })
+								@Html.ActionLink("Data abertura", "Index", new { sortOrder = ViewBag.DateSortParm, filter = ViewBag.QueryFilter })
 								@*Depois voltar o tipo de data para DATE em vez de string*@
 							</th>
 							<th scope="col">Status</th>
