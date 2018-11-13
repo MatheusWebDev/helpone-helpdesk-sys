@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Comment CommentText="Classes do ASP.NET MVC">
-    <Position X="9.968" Y="0.508" Height="0.354" Width="1.629" />
+    <Position X="12.968" Y="9.008" Height="0.354" Width="1.629" />
   </Comment>
   <Comment CommentText="Classes da MODEL">
-    <Position X="18.836" Y="0.5" Height="0.354" Width="1.288" />
+    <Position X="13.586" Y="0.75" Height="0.354" Width="1.288" />
   </Comment>
   <Comment CommentText="Classes Controller">
     <Position X="4.012" Y="0.5" Height="0.354" Width="1.248" />
   </Comment>
   <Comment CommentText="Classes da DAL (DataAcessLayer)">
-    <Position X="8.468" Y="5.108" Height="0.521" Width="1.629" />
+    <Position X="3.718" Y="7.858" Height="0.521" Width="1.629" />
   </Comment>
   <Class Name="helpone_helpdesk_sys.Controllers.ChamadoController">
     <Position X="2" Y="1" Width="3" />
@@ -20,28 +20,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.BundleConfig">
-    <Position X="8.5" Y="2.25" Width="2.25" />
+    <Position X="11.5" Y="10.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>App_Start\BundleConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.FilterConfig">
-    <Position X="8.5" Y="1" Width="2.25" />
+    <Position X="11.5" Y="9.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>App_Start\FilterConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.RouteConfig">
-    <Position X="11" Y="2.5" Width="2" />
+    <Position X="14" Y="11" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>App_Start\RouteConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.MvcApplication">
-    <Position X="11" Y="1" Width="2.25" />
+    <Position X="14" Y="9.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Global.asax.cs</FileName>
@@ -69,91 +69,91 @@
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.DAL.HelpDeskContext">
-    <Position X="10.25" Y="4.75" Width="2.5" />
+    <Position X="5.5" Y="7.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAIAAAAAAAAAAAACAQAAEAAAAAAAAAAAEABEAgA=</HashCode>
       <FileName>DAL\HelpDeskContext.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.DAL.HelpDeskInitializer">
-    <Position X="6.75" Y="6.75" Width="3.25" />
+    <Position X="2" Y="9.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DAL\HelpDeskInitializer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Artigo">
-    <Position X="16.5" Y="1" Width="2.75" />
+    <Position X="11.25" Y="1.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>ABACAAAMAAAAACAAQAAgAAAAQIAAAAAAAACEAAAAAAA=</HashCode>
       <FileName>Models\Artigo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Equipe">
-    <Position X="16.5" Y="5.75" Width="2.75" />
+    <Position X="11.25" Y="6" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AEACBAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Equipe.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Subtopico">
-    <Position X="22.5" Y="3.75" Width="3" />
+    <Position X="17.25" Y="4" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAGAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAACAAABA=</HashCode>
       <FileName>Models\Subtopico.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Topico">
-    <Position X="22.25" Y="6.5" Width="3" />
+    <Position X="17" Y="6.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBA=</HashCode>
       <FileName>Models\Topico.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Usuario">
-    <Position X="14" Y="1" Width="2" />
+    <Position X="8.75" Y="1.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAgAAAAAQCABAAAgAAAQAAAAAAA=</HashCode>
       <FileName>Models\Usuario.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Chamados.Chamado">
-    <Position X="19.5" Y="1" Width="2.75" />
+    <Position X="14.25" Y="1.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAEAAAAAAgAQAAiAAAAAIAAAAAAAACkAAAEABA=</HashCode>
       <FileName>Models\Chamados\Chamado.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Chamados.Conteudo">
-    <Position X="22.5" Y="1" Width="2.25" />
+    <Position X="17.25" Y="1.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AQABAAAAAAAAgAAAAAAgAAABAIAAAAAAAAAEAAAAACA=</HashCode>
       <FileName>Models\Chamados\Conteudo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="helpone_helpdesk_sys.Models.Chamados.Feedback">
-    <Position X="19.75" Y="5.25" Width="2" />
+    <Position X="14.5" Y="5.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AQACBAAAAAAAAAAAAAAgBAAAAIAAAAAAAAAEAAAAAGA=</HashCode>
       <FileName>Models\Chamados\Feedback.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="helpone_helpdesk_sys.Models.Enums.EnumStatus">
-    <Position X="14" Y="3.5" Width="2" />
+    <Position X="8.75" Y="3.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAACQAAAAEAAAAABAAAACAAAAAAAAA=</HashCode>
       <FileName>Models\Enums\EnumStatus.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="helpone_helpdesk_sys.Models.Enums.EnumTipoEquipe">
-    <Position X="14.5" Y="7" Width="1.5" />
+    <Position X="9.25" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Enums\EnumTipoEquipe.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="helpone_helpdesk_sys.Models.Enums.EnumTipoUsuario">
-    <Position X="14.25" Y="5.5" Width="1.75" />
+    <Position X="9" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAACAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Models\Enums\EnumTipoUsuario.cs</FileName>
