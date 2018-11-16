@@ -1,6 +1,7 @@
 ﻿using helpone_helpdesk_sys.Models.Enums;
 using helpone_helpdesk_sys.Models;
 using System.Collections.Generic;
+using System;
 
 namespace helpone_helpdesk_sys.DAL
 {
@@ -45,6 +46,18 @@ namespace helpone_helpdesk_sys.DAL
 				new Subtopico {Id=6, Titulo="Subtopico6", Descricao="alguma descricao", TopicoID=2}
 			};
 			subtopicos.ForEach(subt => context.Subtopicos.Add(subt));
+			context.SaveChanges();
+
+			var artigos = new List<Artigo>
+			{
+				new Artigo {Id=1, Titulo="TituloArtigo1", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=1},
+				new Artigo {Id=2, Titulo="TituloArtigo2", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=1},
+				new Artigo {Id=3, Titulo="TituloArtigo3", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=2},
+				new Artigo {Id=4, Titulo="TituloArtigo4", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=2},
+				new Artigo {Id=5, Titulo="TituloArtigo5", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=3},
+				new Artigo {Id=6, Titulo="TituloArtigo6", ConteudoArtigo="alguma descricao", DataCriacao=DateTime.Now, SubtopicoID=3}
+			};
+			artigos.ForEach(art => context.Artigos.Add(art));
 			context.SaveChanges();
 
 			//var chamados = new List<Chamado>

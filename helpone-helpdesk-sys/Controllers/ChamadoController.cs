@@ -405,5 +405,15 @@ namespace helpone_helpdesk_sys.Controllers
 
 			return View();
 		}
+
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 	}
 }

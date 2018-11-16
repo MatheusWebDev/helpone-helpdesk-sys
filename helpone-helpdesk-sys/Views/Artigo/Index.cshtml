@@ -1,81 +1,57 @@
 ﻿@model IEnumerable<helpone_helpdesk_sys.Models.Artigo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Base de Conhecimento";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Subtopico.Titulo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.Login)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TituloArtigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ConteudoArtigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataCriacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataFim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QtdLike)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QtdUnlike)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Subtopico.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Login)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TituloArtigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConteudoArtigo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataCriacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataFim)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdLike)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdUnlike)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<section class="content">
+	<div class="row py-5">
+		<div class="col-12 text-center text-sm-left">
+			<h2 class="mb-4 border-bottom pb-3">Artigos da base de conhecimento</h2>
+			<div class="d-flex justify-content-between align-items-center">
+				<h4>Todos artigos</h4>
+			</div>
+			<div class="filtro border-top border-right border-left p-2 mt-2">
+				<button class="btn btn-link text-secondary float-left" type="button" data-toggle="collapse" data-target="#filterBtns" aria-expanded="false" aria-controls="filterBtns">
+					<i class="fas fa-filter"></i>
+				</button>
+			</div>
+			<table class="table table-hover border-right border-left border-bottom">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">
+							ID
+						</th>
+						<th scope="col">
+							Titulo
+						</th>
+						<th scope="col">
+							Data Criação
+						</th>
+						<th scope="col">SubTopico</th>
+						<th scope="col">Qtd. Likes</th>
+						<th scope="col">Qtd. UnLikes</th>
+						<th scope="col">Qtd. Cham.</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+							<td><a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
+							<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+							<td>@Html.DisplayFor(modelItem => item.Subtopico.Titulo)</td>
+								 @{
+									 var qtdChamado = item.ListaChamados.Count();
+									}
+							<td>@Html.DisplayFor(modelItem => item.QtdLike)</td>
+							<td>@Html.DisplayFor(modelItem => item.QtdUnlike)</td>
+							<td>@Html.DisplayFor(modelItem => qtdChamado)</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div><!-- ./ artigo-header -->
+	</div>
+</section>

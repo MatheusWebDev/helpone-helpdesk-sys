@@ -12,9 +12,8 @@ namespace helpone_helpdesk_sys.Models
 		public Artigo() => this.ListaChamados = new List<Chamado>();
 
 		public int Id { get; set; }
-		public string TituloArtigo { get; set; }
+		public string Titulo { get; set; }
 		public string ConteudoArtigo { get; set; }
-		public EnumStatus Status { get; set; }
 		[DataType(DataType.DateTime)]
 		[Column(TypeName = "datetime2")]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy - HH:mm}", ApplyFormatInEditMode = true)]
@@ -27,7 +26,7 @@ namespace helpone_helpdesk_sys.Models
 		public int QtdUnlike { get; set; }
 		//public int QtdVisualizacao { get; set; }
 		public int SubtopicoID { get; set; }
-		public int UsuarioID { get; set; }
+		public int? UsuarioID { get; set; }
 
 		public virtual Subtopico Subtopico { get; set; }
 		public virtual Usuario Usuario { get; set; }

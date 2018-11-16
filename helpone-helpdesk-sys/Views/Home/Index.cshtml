@@ -1,5 +1,8 @@
 ﻿@{
 	ViewBag.Title = "Home Page";
+
+	var listaTopicos = ViewBag.Topicos;
+	var listaSubtopicos = ViewBag.Subtopicos;
 }
 
 <!-- Content Section -->
@@ -57,34 +60,47 @@
 			<!-- col-topics -->
 			<div class="col-sm-6 col-lg-4 pl-md-5 text-center text-sm-left">
 				<h2 class="h3 mb-3">Selecione um tópico</h2>
-			@foreach (var topico in ViewBag.Topicos) {
-				<!-- accordion-topics -->
-				<div class="accordion my-1 pt-2" id="accordionExample">
-					<!-- card-accordion -->
-					<div class="card border-0">
-						<div id="topico-@topico.Id">
-						 <h5 class="mb-2">
-								<button class="btn btn-info btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+				@foreach (var topico in listaTopicos)
+				{
+					<!-- accordion-topics -->
+					<div class="accordion my-1 pt-2" id="accordionExample">
+						<!-- card-accordion -->
+						<div class="card border-0">
+							<div id="topico-@topico.Id">
+								<h5 class="mb-2">
+									<button class="btn btn-info btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapse-@topico.Id" aria-expanded="true" aria-controls="collapse-@topico.Id">
 										<span>@topico.Titulo</span>
 										<span class="d-block mb-1"><i class="fas fa-angle-down"></i></span>
-								</button>
-							</h5>
-						</div><!-- / .card-header -->
-						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-							<div class="card-body pl-0 pl-sm-1 py-0 pr-0 w-75 mx-auto mx-sm-0">
-								<div class="list-group list-group-flush">
-									@*@foreach (var subtopico in ViewBag.Subtopicos)
-									{
-										if (subtopico.TopicoID == topico.Id)
+									</button>
+								</h5>
+							</div><!-- / .card-header -->
+							<div id="collapse-@topico.Id" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="card-body pl-0 pl-sm-1 py-0 pr-0 w-75 mx-auto mx-sm-0">
+									<div class="list-group list-group-flush">
+										@*@foreach (var subtopico in listaSubtopicos)
+											{
+												if (subtopico.TopicoID == topico.Id)
+												{
+												<a href="#" id="subtopico-@subtopico.Id" class="list-group-item list-group-item-action">@subtopico.Title</a>
+												}
+											}*@
+										@if (topico.Id == 1)
 										{
-										<a href="#" id="subtopico-@subtopico.Id" class="list-group-item list-group-item-action">@subtopico.Title</a>
+											<a href="#" id="subtopico-1" class="list-group-item list-group-item-action">Subtopico 1</a>
+											<a href="#" id="subtopico-2" class="list-group-item list-group-item-action">Subtopico 2</a>
+											<a href="#" id="subtopico-3" class="list-group-item list-group-item-action">Subtopico 3</a>
 										}
-									}*@
+										@if (topico.Id == 2)
+										{
+											<a href="#" id="subtopico-4" class="list-group-item list-group-item-action">Subtopico 4</a>
+											<a href="#" id="subtopico-5" class="list-group-item list-group-item-action">Subtopico 5</a>
+											<a href="#" id="subtopico-6" class="list-group-item list-group-item-action">Subtopico 6</a>
+										}
+									</div>
 								</div>
-							</div>
-						</div><!-- /.card-body -->
-					</div><!-- /.card-accordion -->
-				</div><!-- /.accordion-topics -->
+							</div><!-- /.card-body -->
+						</div><!-- /.card-accordion -->
+					</div><!-- /.accordion-topics -->
 				}
 			</div><!-- /.col-topics -->
 			<!-- actions-btns -->

@@ -314,9 +314,8 @@
     <Content Include="Views\Chamado\Atender.cshtml" />
     <Content Include="Views\Chamado\ResponderForm.cshtml" />
     <Content Include="Views\Artigo\Create.cshtml" />
-    <Content Include="Views\Artigo\Delete.cshtml" />
-    <Content Include="Views\Artigo\Details.cshtml" />
-    <Content Include="Views\Artigo\Edit.cshtml" />
+    <Content Include="Views\Artigo\Detalhes.cshtml" />
+    <Content Include="Views\Artigo\Editar.cshtml" />
     <Content Include="Views\Artigo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
