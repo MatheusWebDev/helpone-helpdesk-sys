@@ -57,128 +57,35 @@
 			<!-- col-topics -->
 			<div class="col-sm-6 col-lg-4 pl-md-5 text-center text-sm-left">
 				<h2 class="h3 mb-3">Selecione um tópico</h2>
-				<div class="accordion my-3 pt-2" id="accordionExample">
-					<!-- accordion-topics -->
+			@foreach (var topico in ViewBag.Topicos) {
+				<!-- accordion-topics -->
+				<div class="accordion my-1 pt-2" id="accordionExample">
+					<!-- card-accordion -->
 					<div class="card border-0">
-						<!-- card-accordion -->
-						<div id="headingOne">
-							<!-- card-header -->
-							<h5 class="mb-3">
-								<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									<div class="d-inline-block">
-										Consultar chamados
-										<small class="d-block">Some text here of button</small>
-									</div>
-									<div class="d-inline-block ml-4">
-										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
-									</div>
+						<div id="topico-@topico.Id">
+						 <h5 class="mb-2">
+								<button class="btn btn-info btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										<span>@topico.Titulo</span>
+										<span class="d-block mb-1"><i class="fas fa-angle-down"></i></span>
 								</button>
 							</h5>
-						</div>
+						</div><!-- / .card-header -->
 						<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-							<!-- card-body -->
-							<div class="card-body">
+							<div class="card-body pl-0 pl-sm-1 py-0 pr-0 w-75 mx-auto mx-sm-0">
 								<div class="list-group list-group-flush">
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
+									@*@foreach (var subtopico in ViewBag.Subtopicos)
+									{
+										if (subtopico.TopicoID == topico.Id)
+										{
+										<a href="#" id="subtopico-@subtopico.Id" class="list-group-item list-group-item-action">@subtopico.Title</a>
+										}
+									}*@
 								</div>
 							</div>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card-accordion -->
-					<!-- -------->
-					<div class="card border-0">
-						<!-- card-accordion -->
-						<div id="headingTwo">
-							<!-- card-header -->
-							<h5 class="mb-3">
-								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									<div class="d-inline-block">
-										Consultar chamados
-										<small class="d-block">Some text here of button</small>
-									</div>
-									<div class="d-inline-block ml-4">
-										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
-									</div>
-								</button>
-							</h5>
-						</div>
-						<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-							<div class="card-body">
-								<div class="list-group list-group-flush">
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-								</div>
-							</div>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card-accordion -->
-					<!-- -------->
-					<div class="card border-0">
-						<!-- card-accordion -->
-						<div id="headingThree">
-							<!-- card-header -->
-							<h5 class="mb-3">
-								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-									<div class="d-inline-block">
-										Consultar chamados
-										<small class="d-block">Some text here of button</small>
-									</div>
-									<div class="d-inline-block ml-4">
-										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
-									</div>
-								</button>
-							</h5>
-						</div>
-						<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-							<!-- /.card-body -->
-							<div class="card-body">
-								<div class="list-group list-group-flush">
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-								</div>
-							</div>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card-accordion -->
-					<!-- -------->
-					<div class="card border-0">
-						<!-- card-accordion -->
-						<div id="headingFour">
-							<!-- card-header -->
-							<h5 class="mb-3">
-								<button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-									<div class="d-inline-block">
-										Consultar chamados
-										<small class="d-block">Some text here of button</small>
-									</div>
-									<div class="d-inline-block ml-4">
-										<span class="d-block mb-1"><i class="fas fa-2x fa-chart-bar"></i></span>
-									</div>
-								</button>
-							</h5>
-						</div>
-						<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-							<!-- /.card-body -->
-							<div class="card-body">
-								<div class="list-group list-group-flush">
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-									<a href="topic-results.html" class="list-group-item list-group-item-action">Some sub topic</a>
-								</div>
-							</div>
-						</div>
-						<!-- /.card-body -->
-					</div>
-					<!-- /.card-accordion -->
-				</div>
-				<!-- /.accordion-topics -->
+						</div><!-- /.card-body -->
+					</div><!-- /.card-accordion -->
+				</div><!-- /.accordion-topics -->
+				}
 			</div><!-- /.col-topics -->
 			<!-- actions-btns -->
 			<div class="col-lg-3 pt-4 pt-sm-0 pt-lg-5">

@@ -3,6 +3,8 @@ using helpone_helpdesk_sys.Models;
 using helpone_helpdesk_sys.Models.Enums;
 using System.Net;
 using System.Web.Mvc;
+using System.Data.Entity;
+using System.Linq;
 
 namespace helpone_helpdesk_sys.Controllers
 {
@@ -19,6 +21,9 @@ namespace helpone_helpdesk_sys.Controllers
 			}
 
 			Usuario userLogged = db.Usuarios.Find(Session["userLoggedId"]);
+
+			ViewBag.Topicos = db.Topicos.AsEnumerable();
+			ViewBag.Subtopicos = db.Subtopicos.AsEnumerable();
 
 			if (userLogged.TipoAcesso == EnumTipoUsuario.Operador ||
 				 userLogged.TipoAcesso == EnumTipoUsuario.Suporte ||
