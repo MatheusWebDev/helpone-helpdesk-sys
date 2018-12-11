@@ -12,6 +12,7 @@
 
 	string todos = "todos";
 	string aguardando = "aguardando";
+	string artigo = "artigo";
 	string respondidos = "respondidos";
 	string finalizadosFeedbackPos = "finalizados-feedback-pos";
 	string finalizados = "finalizados";
@@ -30,6 +31,9 @@
 			break;
 		case "finalizados-feedback-pos":
 			finalizadosFeedbackPos = "";
+			break;
+		case "artigo":
+			artigo = "";
 			break;
 		case "finalizados":
 			finalizados = "";
@@ -61,6 +65,7 @@
 					@Html.ActionLink("Finalizados", "Index", new { sortOrder = ViewBag.QuerySort, filter = finalizados }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[3] })
 					@Html.ActionLink("Feedback Positivo", "Index", new { sortOrder = ViewBag.QuerySort, filter = finalizadosFeedbackPos }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[4] })
 					@Html.ActionLink("Cancelados", "Index", new { sortOrder = ViewBag.QuerySort, filter = cancelados }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[1] })
+					@Html.ActionLink("Artigos", "Index", new { sortOrder = ViewBag.QuerySort, filter = artigo }, new { @class = "btn btn-info btn-sm " + ViewBag.ClassesChangedFilter.Item2[6] })
 				</div>
 			</div>
 				<table class="table table-hover border-right border-left border-bottom">

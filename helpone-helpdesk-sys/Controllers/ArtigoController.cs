@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using helpone_helpdesk_sys.DAL;
 using helpone_helpdesk_sys.Models;
+using helpone_helpdesk_sys.Models.Chamados;
 using helpone_helpdesk_sys.Models.Enums;
 
 namespace helpone_helpdesk_sys.Controllers
@@ -165,7 +166,7 @@ namespace helpone_helpdesk_sys.Controllers
 		}
 
 
-		// POST: Chamado/Apagar/5
+		// POST: Artigo/Apagar/5
 		[HttpPost, ActionName("Apagar")]
 		[ValidateAntiForgeryToken]
 		public ActionResult ApagarConfirmed(int id)
@@ -175,6 +176,30 @@ namespace helpone_helpdesk_sys.Controllers
 			artigo.DataFim = DateTime.Now;
 
 			db.Entry(artigo).State = EntityState.Modified;
+			db.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+		[ChildActionOnly]
+		public PartialViewResult Adicionar(Chamado chamado)
+		{
+			ViewBag.Chamado = chamado.Id;
+			ViewBag.Artigos = new SelectList(db.Artigos.ToList(), "Id", "Titulo");
+			return PartialView("AdicionarBase");
+		}
+
+		// POST: Artigo/Adicionar
+		[HttpPost, ActionName("Adicionar")]
+		[ValidateAntiForgeryToken]
+		public ActionResult AdicionarChamadoArtigo(int artigoAddChamado, int idchamado)
+		{
+			Artigo artigo = db.Artigos.Find(artigoAddChamado);
+			Chamado chamado = db.Chamados.Find(idchamado);
+
+			artigo.ListaChamados.Add(chamado);
+			chamado.Status = EnumStatus.Artigo;
+			db.Entry(artigo).State = EntityState.Modified;
+			db.Entry(chamado).State = EntityState.Modified;
 			db.SaveChanges();
 			return RedirectToAction("Index");
 		}

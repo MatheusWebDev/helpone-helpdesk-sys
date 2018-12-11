@@ -1,0 +1,22 @@
+﻿<div class="collapse ml-3" id="modalAddChamadoArtigo">
+	@using (Html.BeginForm("Adicionar", "Artigo", FormMethod.Post))
+	{
+		@Html.AntiForgeryToken()
+		<div class="input-group">
+			<div class="form-group">
+				<input type="text" name="idchamado" value="@ViewBag.Chamado" hidden />
+			</div>
+			<div class="input-group-prepend">
+				<label class="input-group-text" for="inputGroupSelect01">Artigos</label>
+			</div>
+			@Html.DropDownList("artigoAddChamado", (SelectList)ViewBag.Artigos, htmlAttributes: new { id = "inputGroupSelect01", @class = "custom-select" })
+			<div class="input-group-append">
+				<button class="btn btn-primary" type="submit">Add</button>
+			</div>
+			<div class="input-group-append">
+				<button class="btn btn-outline-info" type="submit">Criar Artigo</button>
+			</div>
+		</div>
+	}
+	</div>
+

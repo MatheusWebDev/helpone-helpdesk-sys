@@ -15,6 +15,8 @@ namespace helpone_helpdesk_sys.Models.Enums
 		[Description("Finalizado c/ Feedback +")]
 		FinalizadoFeedbackPositivo = 5,
 		[Description("Finalizado c/ Feedback -")]
-		FinalizadoFeedbackNegativo = 6
+		FinalizadoFeedbackNegativo = 6,
+		[Description("Artigo")]
+		Artigo = 7
 	}
 }

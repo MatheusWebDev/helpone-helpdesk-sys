@@ -46,6 +46,10 @@ namespace helpone_helpdesk_sys.Controllers
 					active[5] = "active";
 					show = "show";
 					break;
+				case "artigo":
+					active[6] = "active";
+					show = "show";
+					break;
 				default:
 					show = "";
 					break;
@@ -110,6 +114,9 @@ namespace helpone_helpdesk_sys.Controllers
 					break;
 				case "respondidos":
 					chamados = chamados.Where(c => c.Status == EnumStatus.ChamadoRespondido);
+					break;
+				case "artigo":
+					chamados = chamados.Where(c => c.Status == EnumStatus.Artigo);
 					break;
 				case "finalizados-feedback-pos":
 					chamados = chamados.Where(c => c.Status == EnumStatus.FinalizadoFeedbackPositivo);

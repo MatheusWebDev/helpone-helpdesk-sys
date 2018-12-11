@@ -28,7 +28,7 @@
 						<th scope="col">
 							Data Criação
 						</th>
-						<th scope="col">SubTopico</th>
+						<th scope="col">Subtopico</th>
 						<th scope="col">Qtd. Likes</th>
 						<th scope="col">Qtd. UnLikes</th>
 						<th scope="col">Qtd. Cham.</th>
@@ -37,18 +37,19 @@
 				<tbody>
 					@foreach (var item in Model)
 					{
-						<tr>
-							<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-							<td><a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
-							<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
-							<td>@Html.DisplayFor(modelItem => item.Subtopico.Titulo)</td>
-								 @{
-									 var qtdChamado = item.ListaChamados.Count();
-									}
-							<td>@Html.DisplayFor(modelItem => item.QtdLike)</td>
-							<td>@Html.DisplayFor(modelItem => item.QtdUnlike)</td>
-							<td>@Html.DisplayFor(modelItem => qtdChamado)</td>
-						</tr>
+					<tr>
+						<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+						<td><a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
+						<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+						<td>@Html.DisplayFor(modelItem => item.Subtopico.Titulo)</td>
+						@{
+							var qtdChamado = item.ListaChamados.Count();
+						}
+						<td>@Html.DisplayFor(modelItem => item.QtdLike)</td>
+						<td>@Html.DisplayFor(modelItem => item.QtdUnlike)</td>
+						@{ int qtdChamados = item.ListaChamados.Count(); }
+						<td>@qtdChamados</td>
+					</tr>
 					}
 				</tbody>
 			</table>
