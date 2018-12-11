@@ -3,7 +3,6 @@ using helpone_helpdesk_sys.Models;
 using helpone_helpdesk_sys.Models.Enums;
 using System.Net;
 using System.Web.Mvc;
-using System.Data.Entity;
 using System.Linq;
 
 namespace helpone_helpdesk_sys.Controllers
@@ -18,6 +17,7 @@ namespace helpone_helpdesk_sys.Controllers
 			{
 				Session["userLogged"] = usuarioLogado.Login;
 				Session["userLoggedId"] = usuarioLogado.Id;
+				Session["userLoggedDal"] = usuarioLogado.Daltonismo;
 			}
 
 			Usuario userLogged = db.Usuarios.Find(Session["userLoggedId"]);
