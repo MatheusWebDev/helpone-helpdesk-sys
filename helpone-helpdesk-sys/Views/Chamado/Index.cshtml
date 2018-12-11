@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<helpone_helpdesk_sys.Models.Chamados.Chamado>
+@using helpone_helpdesk_sys.Models.Enums;
 
 @{
 	ViewBag.Title = "Consultar chamados";
@@ -81,14 +82,17 @@
 					</thead>
 					<tbody>
 						@foreach (var item in Model)
-	{
-							<tr>
-								<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
-								<td><a href="@Url.Action(ViewBag.TipoAcaoUsuario, "Chamado", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
-								<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
-								<td>@Html.DisplayFor(modelItem => item.Status)</td>
-								<td>@Html.DisplayFor(modelItem => item.EquipeAtendimento)</td>
-							</tr>
+						{
+						<tr>
+							<th scope="row">@Html.DisplayFor(modelItem => item.Id)</th>
+							<td><a href="@Url.Action(ViewBag.TipoAcaoUsuario, "Chamado", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a></td>
+							<td>@Html.DisplayFor(modelItem => item.DataCriacao)</td>
+							@{
+								string status = item.Status.GetDescription().ToString();
+							}
+							<td>@status</td>
+							<td>@Html.DisplayFor(modelItem => item.EquipeAtendimento)</td>
+						</tr>
 						}
 					</tbody>
 				</table>
