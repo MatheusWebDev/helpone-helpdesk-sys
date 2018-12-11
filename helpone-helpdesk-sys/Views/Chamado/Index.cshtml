@@ -2,7 +2,12 @@
 
 @{
 	ViewBag.Title = "Consultar chamados";
-	var filtroativo = String.IsNullOrEmpty(Request.QueryString.ToString()) ? "" : Request.QueryString["filter"].ToString();
+
+	string filtroativo = "";
+	if (Request.QueryString["filter"] != null)
+	{
+		filtroativo = String.IsNullOrEmpty(Request.QueryString["filter"].ToString()) ? "" : Request.QueryString["filter"].ToString();
+	}
 
 	string todos = "todos";
 	string aguardando = "aguardando";

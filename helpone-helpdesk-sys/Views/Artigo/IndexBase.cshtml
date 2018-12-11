@@ -1,0 +1,73 @@
+﻿@model IEnumerable<helpone_helpdesk_sys.Models.Artigo>
+
+@{
+	ViewBag.Title = "Base de Conhecimento";
+	var resultado = ViewBag.QtdEncontrado > 1 ? "resultados" : "resultado";
+}
+
+<section class="content">
+	<div class="row py-5">
+		<div class="col-12 text-center text-sm-left">
+			@if (ViewBag.pesquisa)
+			{
+				<h2 class="pb-3 mb-0">Resultados da pesquisa</h2>
+				<p class="h5 mb-0">
+					@if (ViewBag.QtdEncontrado > 0)
+					{
+						@ViewBag.QtdEncontrado
+					}
+					else
+					{
+						<span>Nenhum</span>
+					} @resultado para "@ViewBag.TextoPesquisado"
+				</p>
+				if (ViewBag.QtdEncontrado > 0)
+				{
+					<div class="d-flex justify-content-between align-items-center">
+						<h4 class="mt-5">Base de Conhecimento</h4>
+					</div>
+				}
+			}
+			else
+			{
+				<h2 class="mb-2 pb-3">Base de Conhecimento</h2>
+				<div class="d-flex justify-content-between align-items-center">
+					<h4>@if (ViewBag.Nenhum) {<span>Nenhm resultado encontrado em </span>} @ViewBag.TextoPesquisado</h4>
+				</div>
+			}
+			<!-- group-artigo-found -->
+			<div class="group-artigos-found mt-2">
+				@if (!ViewBag.Nenhum)
+				{
+					foreach (var item in Model)
+					{
+						<hr>
+						<div class="artigo-found my-3">
+							<!-- artigo-found -->
+							<h5 class="h4">
+								<a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })">@Html.DisplayFor(modelItem => item.Titulo)</a>
+							</h5>
+							@if (ViewBag.pesquisa)
+							{
+								<ol class="breadcrumb bg-transparent m-0 px-0">
+									<li class="breadcrumb-item text-info">@Html.DisplayFor(modelItem => item.Subtopico.Topico.Titulo)</li>
+									<li class="breadcrumb-item"><a class="text-info" href="@Url.Action("Index", "Artigo", new { subtopico = item.SubtopicoID })">@Html.DisplayFor(modelItem => item.Subtopico.Titulo)</a></li>
+									<li class="breadcrumb-item no-breadcrumb-divider"> &#183; Criado em @Html.DisplayFor(modelItem => item.DataCriacao)</li>
+								</ol>
+							}
+							<p class="mb-1">....@item.ConteudoArtigo.Substring(0, 10)...</p>
+							<a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })" class="btn btn-link text-info px-0">Leia Mais</a>
+						</div> <!-- /. artigo-found -->
+					}
+					<hr>
+				}
+				else
+				{
+					<a href="@Url.Action("Index", "Home")" class="btn btn-link text-info px-0">Pequisar na Base de Conhecimento</a>
+					<div>OU</div>
+					<a href="@Url.Action("Abrir", "Chamado")" class="btn btn-link text-info px-0">Abrir chamado</a>
+				}
+			</div><!-- /. group-artigo-found -->
+		</div><!-- ./ artigo-header -->
+	</div>
+</section>

@@ -317,6 +317,7 @@
     <Content Include="Views\Artigo\Detalhes.cshtml" />
     <Content Include="Views\Artigo\Editar.cshtml" />
     <Content Include="Views\Artigo\Index.cshtml" />
+    <Content Include="Views\Artigo\IndexBase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,6 +17,7 @@ namespace helpone_helpdesk_sys.Controllers
 			{
 				Session["userLogged"] = usuarioLogado.Login;
 				Session["userLoggedId"] = usuarioLogado.Id;
+				Session["userLoggedTipo"] = usuarioLogado.TipoAcesso;
 				Session["userLoggedDal"] = usuarioLogado.Daltonismo;
 			}
 
@@ -24,6 +25,7 @@ namespace helpone_helpdesk_sys.Controllers
 
 			ViewBag.Topicos = db.Topicos.AsEnumerable();
 			ViewBag.Subtopicos = db.Subtopicos.AsEnumerable();
+			ViewBag.Artigos = db.Artigos.AsEnumerable();
 
 			if (userLogged.TipoAcesso == EnumTipoUsuario.Operador ||
 				 userLogged.TipoAcesso == EnumTipoUsuario.Suporte ||
@@ -63,6 +65,15 @@ namespace helpone_helpdesk_sys.Controllers
 		public PartialViewResult Breadcrumb()
 		{
 			return PartialView("_Breadcrumb");
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing)
+			{
+				db.Dispose();
+			}
+			base.Dispose(disposing);
 		}
 	}
 }

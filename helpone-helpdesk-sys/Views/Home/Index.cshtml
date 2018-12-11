@@ -13,48 +13,15 @@
 			<div class="col-sm-6 col-lg-5 mb-5 text-center text-sm-left">
 				<h2 class="h3 mb-2">Soluções Frequentes</h2>
 				<div class="row mt-3">
-					<div class="col-md-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-md-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-md-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-md-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-				</div>
-				<div class="row d-none d-md-flex">
-					<div class="col-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
-					<div class="col-6 p-2">
-						<a href="artigo-page.html" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
-							Some text in heto with some problem?
-						</a>
-					</div>
+					@foreach (var artigo in ViewBag.Artigos)
+					{
+						<div class="col-md-6 p-2">
+							<a href="@Url.Action("Detalhes", "Artigo", new { id = artigo.Id })" style="white-space: normal;" class="btn btn-light no-white-space text-left p-3 border" role="button">
+								@artigo.Titulo
+								?
+							</a>
+						</div>
+					}
 				</div>
 			</div><!-- /.col-soluctions -->
 			<!-- col-topics -->
@@ -86,15 +53,15 @@
 											}*@
 										@if (topico.Id == 1)
 										{
-											<a href="#" id="subtopico-1" class="list-group-item list-group-item-action">Subtopico 1</a>
-											<a href="#" id="subtopico-2" class="list-group-item list-group-item-action">Subtopico 2</a>
-											<a href="#" id="subtopico-3" class="list-group-item list-group-item-action">Subtopico 3</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 1 })" id="subtopico-1" class="list-group-item list-group-item-action">Subtopico 1</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 2 })" id="subtopico-2" class="list-group-item list-group-item-action">Subtopico 2</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 3 })" id="subtopico-3" class="list-group-item list-group-item-action">Subtopico 3</a>
 										}
 										@if (topico.Id == 2)
 										{
-											<a href="#" id="subtopico-4" class="list-group-item list-group-item-action">Subtopico 4</a>
-											<a href="#" id="subtopico-5" class="list-group-item list-group-item-action">Subtopico 5</a>
-											<a href="#" id="subtopico-6" class="list-group-item list-group-item-action">Subtopico 6</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 4 })" id="subtopico-4" class="list-group-item list-group-item-action">Subtopico 4</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 5 })" id="subtopico-5" class="list-group-item list-group-item-action">Subtopico 5</a>
+											<a href="@Url.Action("Index", "Artigo", new { subtopico = 6 })" id="subtopico-6" class="list-group-item list-group-item-action">Subtopico 6</a>
 										}
 									</div>
 								</div>

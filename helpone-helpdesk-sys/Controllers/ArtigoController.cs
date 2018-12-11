@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using helpone_helpdesk_sys.DAL;
 using helpone_helpdesk_sys.Models;
+using helpone_helpdesk_sys.Models.Enums;
 
 namespace helpone_helpdesk_sys.Controllers
 {
@@ -16,10 +14,46 @@ namespace helpone_helpdesk_sys.Controllers
 		private HelpDeskContext db = new HelpDeskContext();
 
 		// GET: Artigo
-		public ActionResult Index()
+		public ActionResult Index(string search, string subtopico)
 		{
 			var artigos = db.Artigos.Include(a => a.Subtopico);
-			return View(artigos.ToList());
+			Usuario usuarioLogado = db.Usuarios.Find(Session["userLoggedId"]);
+			//PESQUISA
+			ViewBag.pesquisa = false;
+			ViewBag.TextoPesquisado = "";
+			ViewBag.QtdEncontrado = 0;
+
+			if (!String.IsNullOrEmpty(search))
+			{
+				ViewBag.pesquisa = true;
+				ViewBag.TextoPesquisado = search;
+				artigos = artigos.Where(a => a.Titulo.Contains(search) || a.ConteudoArtigo.Contains(search));
+				ViewBag.QtdEncontrado = artigos.Count();
+				artigos.ToList();
+			}
+			//CATEGORIA
+			ViewBag.Nenhum = false;
+			if (!String.IsNullOrEmpty(subtopico))
+			{
+				int id = int.Parse(subtopico);
+				artigos = artigos.Where(a => a.SubtopicoID == id);
+				artigos.ToList();
+				if(artigos.Count() < 1)
+				{
+					artigos = null;
+					ViewBag.Nenhum = true;
+					ViewBag.TextoPesquisado = db.Subtopicos.Find(id).Titulo;
+				}
+			}
+
+			if (usuarioLogado.TipoAcesso == EnumTipoUsuario.Suporte || usuarioLogado.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
+			{
+				return View(artigos);
+			}
+			else
+			{
+				return View("IndexBase", artigos);
+			}
 		}
 
 		// GET: Artigo/Detalhes/5
@@ -38,7 +72,7 @@ namespace helpone_helpdesk_sys.Controllers
 		}
 
 		// POST: Artigo/Votar/5
-		public ActionResult Votar(String voto,int? id)
+		public ActionResult Votar(String voto, int? id)
 		{
 			if (id == null)
 			{
@@ -56,7 +90,8 @@ namespace helpone_helpdesk_sys.Controllers
 				{
 					artigo.QtdLike++;
 				}
-				if (voto == "false") {
+				if (voto == "false")
+				{
 					artigo.QtdUnlike++;
 				}
 

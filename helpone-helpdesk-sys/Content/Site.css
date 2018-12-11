@@ -89,3 +89,14 @@
 	top: 2px;
 	left: 2px;
 }
+
+/*MUDANDO SEPARADOR do rastro de naveção PADRÃO do Bootstrap*/
+.no-breadcrumb-divider {
+	display: none !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+	display: inline-block !important;
+	padding-right: 0.5rem !important;
+	color: #6c757d !important;
+	content: ">" !important;
+}
