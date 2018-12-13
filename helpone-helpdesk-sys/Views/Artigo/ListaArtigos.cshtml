@@ -1,0 +1,9 @@
+﻿<div class="artigos-relacionados mb-5">
+	<!-- artigos-relacionados -->
+	<h2 class="h3 mb-3">Isso pode ajudar?</h2>
+	<div class="list-group list-group-flush">
+		@foreach(var item in ViewBag.Artigos) {
+			<a href="@Url.Action("Detalhes", new { id = item.Id })" class="list-group-item list-group-item-action">@item.Titulo</a>
+		}
+	</div>
+</div><!-- /. artigos-relacionados -->

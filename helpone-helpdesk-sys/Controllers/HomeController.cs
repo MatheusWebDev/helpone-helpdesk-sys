@@ -23,10 +23,13 @@ namespace helpone_helpdesk_sys.Controllers
 
 			Usuario userLogged = db.Usuarios.Find(Session["userLoggedId"]);
 
-			ViewBag.Topicos = db.Topicos.AsEnumerable();
-			ViewBag.Subtopicos = db.Subtopicos.AsEnumerable();
 			ViewBag.Artigos = db.Artigos.AsEnumerable();
-
+			//Checa se há usuario logado
+			if (userLogged == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+			}
+			//Verifica tipo de acesso
 			if (userLogged.TipoAcesso == EnumTipoUsuario.Operador ||
 				 userLogged.TipoAcesso == EnumTipoUsuario.Suporte ||
 				 userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
@@ -65,6 +68,14 @@ namespace helpone_helpdesk_sys.Controllers
 		public PartialViewResult Breadcrumb()
 		{
 			return PartialView("_Breadcrumb");
+		}
+
+		[ChildActionOnly]
+		public PartialViewResult SelectTopico()
+		{
+			ViewBag.Topicos = db.Topicos.AsEnumerable();
+			ViewBag.Subtopicos = db.Subtopicos.AsEnumerable();
+			return PartialView("_SelectTopico");
 		}
 
 		protected override void Dispose(bool disposing)

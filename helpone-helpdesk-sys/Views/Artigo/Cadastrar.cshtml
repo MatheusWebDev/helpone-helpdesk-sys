@@ -1,0 +1,40 @@
+﻿@model helpone_helpdesk_sys.Models.Artigo
+
+@{
+	ViewBag.Title = "Cadastrar";
+}
+
+@using (Html.BeginForm())
+{
+	@Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+	<h2 class="my-3">Cadastrar Artigo</h2>
+	<hr class="mb-3" />
+
+	@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+	<div class="form-group">
+		<label for="ConteudoForm">Subtopico do chamado gerando artigo</label>
+		@Html.DropDownList("SubtopicoID", (SelectList)ViewBag.SubtopicosID, "selecione o assunto do artigo", htmlAttributes: new { @class = "form-control" })
+		@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		<label for="Titulo">Titulo do Artigo <small class="text-secondary">Qual problema ele resolve?</small></label>
+		@Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+		@Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.ConteudoArtigo, "Descrição do Artigo")
+		@Html.TextAreaFor(model => model.ConteudoArtigo, htmlAttributes: new { @class = "form-control", rows=20 })
+		@Html.ValidationMessageFor(model => model.ConteudoArtigo, "", new { @class = "text-danger" })
+	</div>
+
+	<div class="form-group">
+		<input type="submit" value="Salvar Artigo" class="btn btn-primary btn-info btn-lg" />
+	</div>
+</div>
+}
+@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm mt-3" })

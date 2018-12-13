@@ -15,10 +15,16 @@ namespace helpone_helpdesk_sys.Controllers
 		private HelpDeskContext db = new HelpDeskContext();
 
 		// GET: Artigo
-		public ActionResult Index(string search, string subtopico)
+		public ActionResult Index(string search, string subtopico, string cancelados)
 		{
-			var artigos = db.Artigos.Include(a => a.Subtopico);
-			Usuario usuarioLogado = db.Usuarios.Find(Session["userLoggedId"]);
+			var artigos = db.Artigos.Where(a => a.DataFim == DateTime.MinValue).Include(a => a.Subtopico);
+
+			if (!String.IsNullOrEmpty(cancelados))
+			{
+				artigos = db.Artigos.Where(a => a.DataFim != DateTime.MinValue).Include(a => a.Subtopico);
+			}
+
+				Usuario usuarioLogado = db.Usuarios.Find(Session["userLoggedId"]);
 			//PESQUISA
 			ViewBag.pesquisa = false;
 			ViewBag.TextoPesquisado = "";
@@ -45,6 +51,11 @@ namespace helpone_helpdesk_sys.Controllers
 					ViewBag.Nenhum = true;
 					ViewBag.TextoPesquisado = db.Subtopicos.Find(id).Titulo;
 				}
+			}
+
+			if(usuarioLogado == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
 			}
 
 			if (usuarioLogado.TipoAcesso == EnumTipoUsuario.Suporte || usuarioLogado.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
@@ -104,30 +115,33 @@ namespace helpone_helpdesk_sys.Controllers
 		}
 
 
-		// GET: Artigo/Create
-		public ActionResult Create()
+		// GET: Artigo/Cadastrar
+		public ActionResult Cadastrar(int idchamado)
 		{
-			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo");
-			ViewBag.UsuarioID = new SelectList(db.Usuarios, "Id", "Login");
+			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo", idchamado);
+			ViewBag.IdChamadoParaArtigo = idchamado;
 			return View();
 		}
 
-		// POST: Artigo/Create
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+		// POST: Artigo/Cadastrar
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include = "Id,TituloArtigo,ConteudoArtigo,Status,DataCriacao,DataFim,QtdLike,QtdUnlike,SubtopicoID,UsuarioID")] Artigo artigo)
+		public ActionResult Cadastrar([Bind(Include = "Titulo,ConteudoArtigo,SubtopicoID")] Artigo artigo, int idchamado)
 		{
 			if (ModelState.IsValid)
 			{
+				artigo.DataCriacao = DateTime.Now;
+				Chamado chamadoParaArtigo = db.Chamados.Find(idchamado);
+				chamadoParaArtigo.Status = EnumStatus.Artigo;
+				artigo.ListaChamados.Add(chamadoParaArtigo);
+
+				db.Entry(chamadoParaArtigo).State = EntityState.Modified;
 				db.Artigos.Add(artigo);
 				db.SaveChanges();
 				return RedirectToAction("Index");
 			}
 
 			ViewBag.SubtopicoID = new SelectList(db.Subtopicos, "Id", "Titulo", artigo.SubtopicoID);
-			ViewBag.UsuarioID = new SelectList(db.Usuarios, "Id", "Login", artigo.UsuarioID);
 			return View(artigo);
 		}
 
@@ -155,6 +169,10 @@ namespace helpone_helpdesk_sys.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				if (artigo.DataFim != DateTime.MinValue)
+				{
+					artigo.DataFim = DateTime.MinValue;
+				}
 				artigo.DataCriacao = DateTime.Now;
 
 				db.Entry(artigo).State = EntityState.Modified;
@@ -180,6 +198,7 @@ namespace helpone_helpdesk_sys.Controllers
 			return RedirectToAction("Index");
 		}
 
+		// Adicionar chamado select view
 		[ChildActionOnly]
 		public PartialViewResult Adicionar(Chamado chamado)
 		{
@@ -202,6 +221,15 @@ namespace helpone_helpdesk_sys.Controllers
 			db.Entry(chamado).State = EntityState.Modified;
 			db.SaveChanges();
 			return RedirectToAction("Index");
+		}
+
+		// Sidebar com lista de 5 artigos
+		[ActionName("ListaArtigos")]
+		[ChildActionOnly]
+		public PartialViewResult ListaArtigos(Chamado chamado)
+		{
+			ViewBag.Artigos = db.Artigos.Take(5);
+			return PartialView("ListaArtigos");
 		}
 
 		protected override void Dispose(bool disposing)

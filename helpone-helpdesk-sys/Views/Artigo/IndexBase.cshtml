@@ -7,7 +7,7 @@
 
 <section class="content">
 	<div class="row py-5">
-		<div class="col-12 text-center text-sm-left">
+		<div class="col-md-7 col-lg-8 mb-5 text-center text-sm-left">
 			@if (ViewBag.pesquisa)
 			{
 				<h2 class="pb-3 mb-0">Resultados da pesquisa</h2>
@@ -32,7 +32,10 @@
 			{
 				<h2 class="mb-2 pb-3">Base de Conhecimento</h2>
 				<div class="d-flex justify-content-between align-items-center">
-					<h4>@if (ViewBag.Nenhum) {<span>Nenhm resultado encontrado em </span>} @ViewBag.TextoPesquisado</h4>
+					<h4>
+						@if (ViewBag.Nenhum)
+						{<span>Nenhm resultado encontrado em </span>} @ViewBag.TextoPesquisado
+					</h4>
 				</div>
 			}
 			<!-- group-artigo-found -->
@@ -55,7 +58,7 @@
 									<li class="breadcrumb-item no-breadcrumb-divider"> &#183; Criado em @Html.DisplayFor(modelItem => item.DataCriacao)</li>
 								</ol>
 							}
-							<p class="mb-1">....@item.ConteudoArtigo.Substring(0, 10)...</p>
+							<p class="mb-1">....@item.ConteudoArtigo.Substring(0, 100)...</p>
 							<a href="@Url.Action("Detalhes", "Artigo", new { id = item.Id })" class="btn btn-link text-info px-0">Leia Mais</a>
 						</div> <!-- /. artigo-found -->
 					}
@@ -69,5 +72,11 @@
 				}
 			</div><!-- /. group-artigo-found -->
 		</div><!-- ./ artigo-header -->
+		<aside class="col-md-5 col-lg-4 pl-md-5 pt-3 text-center text-sm-left">
+			@{
+				Html.RenderAction("ListaArtigos", "Artigo");
+				Html.RenderAction("SelectTopico", "Home");
+			}
+		</aside><!-- ./ sidebar -->
 	</div>
 </section>

@@ -145,6 +145,10 @@ namespace helpone_helpdesk_sys.Controllers
 					break;
 			}
 
+			if (userLogged == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+			}
 			if (userLogged.TipoAcesso == EnumTipoUsuario.Suporte || userLogged.TipoAcesso == EnumTipoUsuario.Desenvolvimento)
 			{
 				ViewBag.TipoAcaoUsuario = "Atender";

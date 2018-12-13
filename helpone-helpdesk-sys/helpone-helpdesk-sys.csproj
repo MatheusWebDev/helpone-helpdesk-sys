@@ -317,12 +317,14 @@
     <Content Include="Views\Shared\_Breadcrumb.cshtml" />
     <Content Include="Views\Chamado\Atender.cshtml" />
     <Content Include="Views\Chamado\ResponderForm.cshtml" />
-    <Content Include="Views\Artigo\Create.cshtml" />
+    <Content Include="Views\Artigo\Cadastrar.cshtml" />
     <Content Include="Views\Artigo\Detalhes.cshtml" />
     <Content Include="Views\Artigo\Editar.cshtml" />
     <Content Include="Views\Artigo\Index.cshtml" />
     <Content Include="Views\Artigo\IndexBase.cshtml" />
     <Content Include="Views\Artigo\AdicionarBase.cshtml" />
+    <Content Include="Views\Artigo\ListaArtigos.cshtml" />
+    <Content Include="Views\Shared\_SelectTopico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

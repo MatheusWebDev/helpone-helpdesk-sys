@@ -4,48 +4,57 @@
 @{
 	ViewBag.Title = "Abrir chamado";
 }
+<div class="row py-5">
+	<div class="col-md-7 col-lg-8 mb-5 text-center text-sm-left">
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-	@Html.AntiForgeryToken()
+			<div class="form-horizontal">
+				<h2 class="my-3">Cadastrar chamado</h2>
+				<hr class="mb-3" />
 
-	<div class="form-horizontal">
-		<h2 class="my-3">Cadastrar chamado</h2>
-		<hr class="mb-3" />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				<div class="form-group">
+					<label for="Subtopico_TopicoID">Em que podemos ajudar?</label>
+					@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control custom-select" })
+					@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
+				</div>
 
-		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-		<div class="form-group">
-			<label for="Subtopico_TopicoID">Em que podemos ajudar?</label>
-			@Html.DropDownList("TopicoID", (IEnumerable<SelectListItem>)ViewBag.TopicoID, "-", htmlAttributes: new { @class = "form-control custom-select" })
-			@Html.ValidationMessageFor(model => model.Subtopico.TopicoID, "", new { @class = "text-danger" })
-		</div>
+				<div class="form-group">
+					<label for="SubtopicoID">Qual problema está tendo?</label>
+					@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control custom-select" })
+					@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
+				</div>
 
-		<div class="form-group">
-			<label for="SubtopicoID">Qual problema está tendo?</label>
-			@Html.DropDownList("SubtopicoID", (IEnumerable<SelectListItem>)ViewBag.SubtopicoID, "-", htmlAttributes: new { @class = "form-control custom-select" })
-			@Html.ValidationMessageFor(model => model.SubtopicoID, "", new { @class = "text-danger" })
-		</div>
+				<div class="form-group">
+					<label for="Titulo">Título do chamado</label>
+					@Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+				</div>
 
-		<div class="form-group">
-			<label for="Titulo">Título do chamado</label>
-			@Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
-			@Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
-		</div>
+				<div class="form-group">
+					<label for="ConteudoForm">Descrição do problema</label>
+					<textarea class="form-control" id="ConteudoForm" name="ConteudoForm" rows="12"></textarea>
+					@Html.ValidationMessageFor(model => model.Conteudos.Single().ConteudoChamado, "", new { @class = "text-danger" })
+				</div>
 
-		<div class="form-group">
-			<label for="ConteudoForm">Descrição do problema</label>
-			<textarea class="form-control" id="ConteudoForm" name="ConteudoForm" rows="12"></textarea>
-			@Html.ValidationMessageFor(model => model.Conteudos.Single().ConteudoChamado, "", new { @class = "text-danger" })
-		</div>
-
-		<div class="form-group">
-			<input type="submit" value="Cadastrar chamado" class="btn btn-primary btn-info btn-lg" />
-		</div>
+				<div class="form-group">
+					<input type="submit" value="Cadastrar chamado" class="btn btn-primary btn-info btn-lg" />
+				</div>
+			</div>
+		}
+		@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm mt-3" })
 	</div>
-}
-@Html.ActionLink("Voltar", "Index", new { area = "" }, new { @class = "btn btn-secondary btn-sm mt-3" })
+	<aside class="col-md-5 col-lg-4 pl-md-5 pt-3 text-center text-sm-left">
+		@{
+			Html.RenderAction("ListaArtigos", "Artigo");
+			Html.RenderAction("SelectTopico", "Home");
+		}
+	</aside><!-- ./ sidebar -->
+</div>
 
 
-@section Scripts {
-	@Scripts.Render("~/bundles/jqueryval")
-}
+	@section Scripts {
+		@Scripts.Render("~/bundles/jqueryval")
+	}

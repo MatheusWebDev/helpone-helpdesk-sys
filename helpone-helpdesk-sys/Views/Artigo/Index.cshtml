@@ -1,7 +1,18 @@
 ﻿@model IEnumerable<helpone_helpdesk_sys.Models.Artigo>
 
 @{
-    ViewBag.Title = "Base de Conhecimento";
+	ViewBag.Title = "Base de Conhecimento";
+
+	string filtroativo = "";
+	string show = "show";
+	string active = "active";
+	if (Request.QueryString["cancelados"] == null)
+	{
+		filtroativo = "true";
+		show = "";
+		active = "";
+
+	}
 }
 
 <section class="content">
@@ -15,7 +26,11 @@
 				<button class="btn btn-link text-secondary float-left" type="button" data-toggle="collapse" data-target="#filterBtns" aria-expanded="false" aria-controls="filterBtns">
 					<i class="fas fa-filter"></i>
 				</button>
+				<div class="collapse float-left pt-1 @show" id="filterBtns">
+					@Html.ActionLink("Cancelados", "Index", new { cancelados = filtroativo }, new { @class = "btn btn-info btn-sm " + active })
+				</div>
 			</div>
+
 			<table class="table table-hover border-right border-left border-bottom">
 				<thead class="thead-light">
 					<tr>
@@ -26,7 +41,7 @@
 							Titulo
 						</th>
 						<th scope="col">
-							Data Criação
+							Última Atualização
 						</th>
 						<th scope="col">Subtopico</th>
 						<th scope="col">Qtd. Likes</th>

@@ -3,54 +3,81 @@
 @{
 	ViewBag.Title = "Artigo";
 }
-
-<div class="d-flex border-bottom justify-content-between align-items-center">
-	<h2 class="mb-2 mt-5 pb-3">#@Html.DisplayFor(model => model.Id) - @Html.DisplayFor(model => model.Titulo)</h2>
-	@if (Session["userLoggedTipo"].ToString() != "Operador")
-	{
-		@Html.ActionLink("Voltar para lista", "Index", "Artigo", new { area = "" }, new { @class = "btn btn-info btn-sm mt-4", role = "button" })
-	}
-	else
-	{
-		@Html.ActionLink("Voltar para Home", "Index", "Home", new { area = "" }, new { @class = "btn btn-info btn-sm mt-4", role = "button" })
-	}
-</div>
-<div>
-	<div class="d-flex justify-content-between align-items-center pt-2">
-		<h4 class="h5 mb-0">Artigo</h4>
-		@if (Session["userLoggedTipo"].ToString() != "Operador") {
-			<div>
-				<a href="@Url.Action("Editar", new { id = Model.Id })" class="btn btn-info ml-2" role="button">
-					<i class="fas fa-edit mr-1"></i>
-					Editar Artigo
-				</a>
-				<!-- Button trigger cancelarModal -->
-				<button type="button" class="btn btn-info" data-toggle="modal" data-target="#cancelarModal">
-					<i class="fas fa-times mr-1"></i>
-					Cancelar Artigo
-				</button>
-			</div>
-		}
-	</div>
-
-	<div class="artigo-box d-flex py-4">
-		<div class="content-artigo d-flex flex-column justify-content-between text-left px-4 py-3 w-100 border">
-			@Html.DisplayFor(model => model.ConteudoArtigo)
-			<div class="footer-artigo">
-				<p class="mt-5 text-muted">
-					Criado em 00/00/2018 - Atualizado há 00 dias.
-				</p>
-				<hr>
-				@using (Html.BeginForm("Votar", "Artigo", new { id = Model.Id }))
+<div class="row py-5">
+	<div class="col-md-7 col-lg-8 mb-5 text-center text-sm-left">
+		<div class="d-flex border-bottom justify-content-between align-items-center">
+			<h2 class="mb-2 mt-5 pb-3">#@Html.DisplayFor(model => model.Id) - @Html.DisplayFor(model => model.Titulo)</h2>
+			@if (Session["userLoggedTipo"].ToString() != "Operador")
+			{
+				@Html.ActionLink("Voltar para lista", "Index", "Artigo", new { area = "" }, new { @class = "btn btn-info btn-sm mt-4", role = "button" })
+			}
+			else
+			{
+				@Html.ActionLink("Voltar para Home", "Index", "Home", new { area = "" }, new { @class = "btn btn-info btn-sm mt-4", role = "button" })
+			}
+		</div>
+		<div>
+			<div class="d-flex justify-content-between align-items-center pt-2">
+				<h4 class="h5 mb-0">Artigo</h4>
+				@if (Session["userLoggedTipo"].ToString() != "Operador")
 				{
-					@Html.AntiForgeryToken()
-					<p class="h5">Esse artigo foi útil?</p>
-					<button type="submit" name="voto" class="btn btn-success" value="true"><i class="fas fa-thumbs-up"></i></button>
-					<button type="submit" name="voto" class="btn btn-danger" value="false"><i class="fas fa-thumbs-down"></i></button>
+					<div>
+						@if (Model.DataFim == DateTime.MinValue)
+						{
+							<a href="@Url.Action("Editar", new { id = Model.Id })" class="btn btn-info ml-2" role="button">
+								<i class="fas fa-edit mr-1"></i>
+								Editar Artigo
+							</a>
+						}
+						else
+						{
+							<a href="@Url.Action("Editar", new { id = Model.Id })" class="btn btn-info ml-2" role="button">
+								<i class="fas fa-edit mr-1"></i>
+								Editar e Ativar Artigo
+							</a>
+						}
+						<!-- Button trigger cancelarModal -->
+						@if (Model.DataFim == DateTime.MinValue)
+						{
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#cancelarModal">
+								<i class="fas fa-times mr-1"></i>
+								Cancelar Artigo
+							</button>
+						}
+					</div>
 				}
+			</div>
+
+			<div class="artigo-box d-flex py-4">
+				<div class="content-artigo d-flex flex-column justify-content-between text-left px-4 py-3 w-100 border">
+					@Html.DisplayFor(model => model.ConteudoArtigo)
+					<div class="footer-artigo">
+						<p class="mt-5 text-muted">
+							@{ var data = Model.DataCriacao.ToString().Substring(0, 10); }
+							Última atualização @data
+						</p>
+						@if (Model.DataFim == DateTime.MinValue)
+						{
+							<hr>
+							using (Html.BeginForm("Votar", "Artigo", new { id = Model.Id }))
+							{
+								@Html.AntiForgeryToken()
+								<p class="h5">Esse artigo foi útil?</p>
+								<button type="submit" name="voto" class="btn btn-success" value="true"><i class="fas fa-thumbs-up"></i></button>
+								<button type="submit" name="voto" class="btn btn-danger" value="false"><i class="fas fa-thumbs-down"></i></button>
+							}
+						}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<aside class="col-md-5 col-lg-4 pl-md-5 pt-3 text-center text-sm-left">
+		@{
+			Html.RenderAction("ListaArtigos", "Artigo");
+			Html.RenderAction("SelectTopico", "Home");
+		}
+	</aside><!-- ./ sidebar -->
 </div>
 
 <!-- CancelarModal -->
